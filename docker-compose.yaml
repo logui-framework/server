@@ -10,6 +10,7 @@ services:
   proxy:
     build:
       context: ./nginx
+    container-name: proxy
     restart: always
     ports:
       - ${EXPOSED_PORT}:8000
