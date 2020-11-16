@@ -1,0 +1,50 @@
+# 
+# LogUI Server docker-compose File
+# Author: David Maxwell
+# Date: 2020-11-16
+#
+
+version: "3"
+
+services:
+  proxy:
+    build:
+      context: ./nginx
+    restart: always
+    ports:
+      - ${EXPOSED_PORT}:8000
+    volumes:
+      - logui-static:/static/
+    networks:
+      - logui-frontend
+
+  # http-worker:
+  #   networks:
+  #     - logui-frontend
+  #     - logui-backend
+
+  # websocket-worker:
+  #   networks:
+  #     - logui-frontend
+  #     - logui-backend
+
+  # cache:
+  #   networks:
+  #     - logui-backend
+
+  # db:
+  #   networks:
+  #     - logui-backend
+
+  # logdb:
+  #   networks:
+  #     - logui-backend
+
+
+volumes:
+  logui-static:
+  logui-data:
+
+networks:
+  logui-frontend:
+  logui-backend:
