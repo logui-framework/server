@@ -9,43 +9,42 @@ version: "3"
 services:
   proxy:
     build:
-      context: ./nginx
-    container_name: proxy
+      context: ./proxy
     restart: always
     ports:
       - ${EXPOSED_PORT}:8000
     volumes:
-      - logui-static:/static/
+      - static:/static/
     networks:
-      - logui-frontend
+      - frontend
 
   # http-worker:
   #   networks:
-  #     - logui-frontend
-  #     - logui-backend
+  #     - frontend
+  #     - backend
 
   # websocket-worker:
   #   networks:
-  #     - logui-frontend
-  #     - logui-backend
+  #     - frontend
+  #     - backend
 
   # cache:
   #   networks:
-  #     - logui-backend
+  #     - backend
 
   # db:
   #   networks:
-  #     - logui-backend
+  #     - backend
 
   # logdb:
   #   networks:
-  #     - logui-backend
+  #     - backend
 
 
 volumes:
-  logui-static:
-  logui-data:
+  static:
+  data:
 
 networks:
-  logui-frontend:
-  logui-backend:
+  frontend:
+  backend:
