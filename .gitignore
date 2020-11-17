@@ -16,5 +16,5 @@ __pycache__/
 # Repository-specific rules
 db.sqlite3
 .env
-migrations/*
-!migrations/__init__.py
+**/migrations/*
+!**/migrations/__init__.py
