@@ -13,7 +13,7 @@ class Application(models.Model):
 
 class Flight(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    application = models.ForeignKey(Application, on_delete=models.RESTRICT)
     name = models.CharField(max_length=256, unique=True)
     fqdn = models.CharField(max_length=512)
     is_active = models.BooleanField(default=False)
