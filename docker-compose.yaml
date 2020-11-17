@@ -2,7 +2,7 @@
 # LogUI Server docker-compose File
 # 
 # Author: David Maxwell
-# Date: 2020-11-16
+# Date: 2020-11-17
 #
 
 version: "3.0"
@@ -12,6 +12,9 @@ services:
     build:
       context: ./proxy
     restart: always
+    depends_on:
+      - http-worker
+      - websocket-worker
     ports:
       - ${PROXY_LISTEN_ON}:8000
     volumes:
@@ -25,6 +28,24 @@ services:
         dockerfile: ./worker/Dockerfile
         args:
           - SECRET_KEY=${SECRET_KEY}  # This is required for collectstatic to work.
+    env_file: .env
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    restart: always
+    volumes:
+      - static:/logui/static/
+    networks:
+      - frontend
+      - backend
+  
+  websocket-worker:
+    build:
+      context: ./
+      dockerfile: ./worker/Dockerfile
+      args:
+        - SECRET_KEY=${SECRET_KEY}
+    command: daphne -b 0.0.0.0 -p 8000 worker.asgi:logui_application
     env_file: .env
     environment:
       - PYTHONDONTWRITEBYTECODE=1

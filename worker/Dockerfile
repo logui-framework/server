@@ -28,6 +28,6 @@ COPY ./requirements.txt /logui/worker/requirements.txt
 WORKDIR /logui/worker
 
 RUN pip install -r requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org
-RUN python manage.py collectstatic --noinput
+RUN if [ -n "$SECRET_KEY" ] ; then python manage.py collectstatic --noinput ; fi
 
-CMD ["gunicorn", "worker.wsgi:application", "-b", "0.0.0.0:8000", "-w", "4"]
+CMD ["gunicorn", "worker.wsgi:logui_application", "-b", "0.0.0.0:8000", "-w", "4"]
