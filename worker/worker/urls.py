@@ -8,5 +8,5 @@ urlpatterns = [
     path('', include('logui_apps.control.urls')),
 ]
 
-handler404 = error_views.Error404View.as_view()
-handler500 = error_views.Error500View.as_view()
+handler404 = error_views.handler_404_error
+handler500 = error_views.handler_500_error
