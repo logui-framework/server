@@ -1,10 +1,11 @@
 # 
 # LogUI Server docker-compose File
+# 
 # Author: David Maxwell
 # Date: 2020-11-16
 #
 
-version: "3"
+version: "3.0"
 
 services:
   proxy:
@@ -12,16 +13,28 @@ services:
       context: ./proxy
     restart: always
     ports:
-      - ${EXPOSED_PORT}:8000
+      - ${PROXY_LISTEN_ON}:8000
     volumes:
-      - static:/static/
+      - static:/logui/static/
     networks:
       - frontend
 
-  # http-worker:
-  #   networks:
-  #     - frontend
-  #     - backend
+  http-worker:
+    build:
+        context: ./
+        dockerfile: ./worker/Dockerfile
+        args:
+          - SECRET_KEY=${SECRET_KEY}  # This is required for collectstatic to work.
+    env_file: .env
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    restart: always
+    volumes:
+      - static:/logui/static/
+    networks:
+      - frontend
+      - backend
 
   # websocket-worker:
   #   networks:
@@ -39,7 +52,6 @@ services:
   # logdb:
   #   networks:
   #     - backend
-
 
 volumes:
   static:

@@ -1,8 +1,14 @@
+#
+# LogUI Server Proxy Dockerfile
+# 
+# Author: David Maxwell
+# Date: 2020-11-16
+#
+
 FROM nginx:1.17-alpine
 
-COPY ./index.html /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx
+LABEL maintainer="maxwelld90@acm.org"
 
-EXPOSE 8000
+COPY ./nginx.conf /etc/nginx
 
 CMD ["nginx", "-g", "daemon off;"]
