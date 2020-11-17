@@ -75,19 +75,31 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'worker.wsgi.logui_wsgi'
-ASGI_APPLICATION = 'worker.asgi.logui_asgi'
+WSGI_APPLICATION = 'worker.wsgi.logui_application'
+ASGI_APPLICATION = 'worker.asgi.logui_application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv('ISLOCAL'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:  # If we are running in Docker
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'logui',
+            'USER': 'postgres',
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+            'HOST': 'db',
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation

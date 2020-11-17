@@ -12,6 +12,7 @@ gunicorn==20.0.4
 hyperlink==20.0.1
 idna==2.10
 incremental==17.5.0
+psycopg2==2.8.6
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
