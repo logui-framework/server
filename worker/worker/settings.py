@@ -34,6 +34,10 @@ ALLOWED_HOSTS = [os.getenv('DOCKER_HOSTNAME'), ]
 # Application definition
 
 INSTALLED_APPS = [
+    'logui_apps.control',
+    'logui_apps.firstrun',
+    'logui_apps.endpoint',
+    'logui_apps.errorhandling',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
