@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 
+{% load static %}
+{% load compress %}
+
 <html>
 
     <head>
+        {% compress css %}
+        <link rel="stylesheet" type="text/less" href="{% static 'logui/less/core.less' %}" />
+        {% endcompress %}
+
+        {% compress js %}
+        <script src="{% static 'logui/js/firstrun.js' %}"></script>
+        {% endcompress %}
+        
         <title>LogUI</title>
     </head>
 

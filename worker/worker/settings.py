@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'compressor',
 ]
 
 MIDDLEWARE = [
@@ -143,4 +144,28 @@ STATIC_ROOT = STATIC_DIR
 
 STATICFILES_DIRS = [
     COPIED_STATIC_DIR,
+]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder'
+)
+
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = STATIC_DIR
+COMPRESS_OUTPUT_DIR = 'compiled'
+
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc {infile} {outfile}'),
+)
+
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
+]
+
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+    'compressor.filters.jsmin.CalmjsFilter',
 ]

@@ -19,7 +19,11 @@ RUN apk add --update --no-cache \
         libressl-dev \
         musl-dev \
         postgresql-dev \
-    && mkdir -p /logui/worker/
+        nodejs \
+        npm
+
+RUN mkdir -p /logui/worker/
+RUN npm install -g less
 
 COPY ./worker /logui/worker
 COPY ./static /logui/worker/copied-static
