@@ -43,8 +43,6 @@ services:
     build:
       context: ./
       dockerfile: ./worker/Dockerfile
-      args:
-        - SECRET_KEY=${SECRET_KEY}
     command: daphne -b 0.0.0.0 -p 8000 worker.asgi:logui_application
     env_file: .env
     environment:
@@ -56,11 +54,6 @@ services:
     networks:
       - frontend
       - backend
-
-  # websocket-worker:
-  #   networks:
-  #     - frontend
-  #     - backend
 
   # cache:
   #   networks:
