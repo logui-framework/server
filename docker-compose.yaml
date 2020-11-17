@@ -24,10 +24,10 @@ services:
 
   http-worker:
     build:
-        context: ./
-        dockerfile: ./worker/Dockerfile
-        args:
-          - SECRET_KEY=${SECRET_KEY}  # This is required for collectstatic to work.
+      context: ./
+      dockerfile: ./worker/Dockerfile
+      args:
+        - SECRET_KEY=${SECRET_KEY}  # This is required for collectstatic to work.
     env_file: .env
     environment:
       - PYTHONDONTWRITEBYTECODE=1
@@ -43,6 +43,8 @@ services:
     build:
       context: ./
       dockerfile: ./worker/Dockerfile
+      args:
+        - SECRET_KEY=${SECRET_KEY}
     command: daphne -b 0.0.0.0 -p 8000 worker.asgi:logui_application
     env_file: .env
     environment:
