@@ -23,9 +23,10 @@ RUN apk add --update --no-cache \
         npm
 
 RUN mkdir -p /logui/worker/
-RUN npm install -g less
+RUN npm install -g less browserify babel-cli
 
 COPY ./worker /logui/worker
+COPY ./app /logui/worker/app
 COPY ./static /logui/worker/copied-static
 COPY ./requirements.txt /logui/worker/requirements.txt
 
@@ -33,5 +34,6 @@ WORKDIR /logui/worker
 
 RUN pip install -r requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org
 RUN if [ -n "$SECRET_KEY" ] ; then python manage.py collectstatic --noinput ; fi
+RUN if [ -n "$SECRET_KEY" ] ; then python manage.py compress ; fi
 
 CMD ["gunicorn", "worker.wsgi:logui_application", "-b", "0.0.0.0:8000", "-w", "4"]

@@ -22,4 +22,8 @@
         {% block bodyblock %}{% endblock %}
     </body>
 
+    {% compress js %}
+    <script type="module" src="{% static 'logui-client/app.js' %}"></script>
+    {% endcompress %}
+
 </html>

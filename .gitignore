@@ -18,3 +18,4 @@ db.sqlite3
 .env
 **/migrations/*
 !**/migrations/__init__.py
+**/node_modules/

@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = BASE_DIR / 'templates'
 STATIC_DIR = '/logui/static'
 COPIED_STATIC_DIR = BASE_DIR / 'copied-static'
+CLIENT_APP_DIR = BASE_DIR / 'app'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -144,6 +145,7 @@ STATIC_ROOT = STATIC_DIR
 
 STATICFILES_DIRS = [
     COPIED_STATIC_DIR,
+    CLIENT_APP_DIR,
 ]
 
 STATICFILES_FINDERS = (
@@ -153,11 +155,14 @@ STATICFILES_FINDERS = (
 )
 
 COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
 COMPRESS_ROOT = STATIC_DIR
-COMPRESS_OUTPUT_DIR = 'compiled'
+COMPRESS_OUTPUT_DIR = 'cache'
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
+    ('text/jsx', 'cat {infile} | babel > {outfile}'),
+    ('module', 'browserify {infile} -t babelify --outfile {outfile}'),
 )
 
 COMPRESS_CSS_FILTERS = [
