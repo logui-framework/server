@@ -10,6 +10,12 @@
             {
                 "loose": true
             }
+        ],
+        [
+            "@babel/plugin-transform-classes",
+            {
+                "loose": true
+            }
         ]
     ]
 }
