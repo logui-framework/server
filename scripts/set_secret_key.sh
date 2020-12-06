@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#
 # Simple Bash script to assign a Django-generated secret key.
 # DO NOT USE this if you have already set up your environment.
 #

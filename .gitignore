@@ -19,3 +19,5 @@ db.sqlite3
 **/migrations/*
 !**/migrations/__init__.py
 **/node_modules/
+/static/cache/
+/worker/collectedstatic/

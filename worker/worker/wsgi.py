@@ -8,9 +8,9 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
 """
 
 import os
-
 from django.core.wsgi import get_wsgi_application
+from worker.settings import set_django_settings_module
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'worker.settings')
+set_django_settings_module()
 
 logui_application = get_wsgi_application()

@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
 
 import os
 import django
+from worker.settings import set_django_settings_module
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'worker.settings')
+set_django_settings_module()
 django.setup()
 
 from channels.auth import AuthMiddlewareStack

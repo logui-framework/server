@@ -23,7 +23,7 @@ RUN apk add --update --no-cache \
         npm
 
 RUN mkdir -p /logui/worker/
-RUN npm install -g less browserify babel-cli
+RUN npm install -g @babel/core @babel/cli browserify less
 
 COPY ./worker /logui/worker
 COPY ./app /logui/worker/app
