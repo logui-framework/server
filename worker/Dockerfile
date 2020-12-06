@@ -28,7 +28,7 @@ RUN npm install -g @babel/core @babel/cli browserify less
 COPY ./worker /logui/worker
 COPY ./app /logui/worker/app
 COPY ./static /logui/worker/copied-static
-COPY ./requirements.txt /logui/worker/requirements.txt
+COPY ./requirements/requirements.txt /logui/worker/requirements.txt
 
 WORKDIR /logui/worker
 
