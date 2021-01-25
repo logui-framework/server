@@ -12,7 +12,6 @@ USE_TZ = True
 
 INSTALLED_APPS = [
     'logui_apps.control',
-    'logui_apps.firstrun',
     'logui_apps.websocket',
     'logui_apps.errorhandling',
     'django.contrib.admin',
