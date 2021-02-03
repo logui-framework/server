@@ -1,0 +1,43 @@
+@import '../global.less';
+
+nav.trail {
+    background-color: @colour-trail-background;
+    line-height: @height-row-top;
+    margin-left: 20px;
+}
+
+nav.trail ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav.trail ul li {
+    display: inline;
+}
+
+nav.trail ul li a {
+    color: @colour-trail-link;
+    text-decoration: none;
+}
+
+nav.trail ul li a:hover {
+    color: @colour-trail-link-hover;
+    text-decoration: underline;
+}
+
+nav.trail ul li a strong {
+    font-weight: 500;
+}
+
+nav.trail ul li:after {
+    position: relative;
+    bottom: 2px;
+    padding: 0 5px 0 5px;
+    font-size: 8pt;
+    content: ' \27A4';
+}
+
+nav.trail ul li:last-child:after {
+    content: '';
+}

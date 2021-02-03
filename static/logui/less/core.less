@@ -1,6 +1,51 @@
 @import 'global.less';
 
+html, body {
+    height: 100%;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: @colour;
+    font-family: 'Roboto', sans-serif;
+    background-color: @colour-page-background;
+    color: @colour-text;
+}
+
+a:hover {
+    -o-transition: @time-hyperlink-hover-duration;
+    -ms-transition: @time-hyperlink-hover-duration;
+    -moz-transition: @time-hyperlink-hover-duration;
+    -webkit-transition: @time-hyperlink-hover-duration;
+    transition: @time-hyperlink-hover-duration;
+}
+
+.noanimation:hover {
+    -o-transition: all 0s ease 0s;
+    -ms-transition: all 0s ease 0s;
+    -moz-transition: all 0s ease 0s;
+    -webkit-transition: all 0s ease 0s;
+    transition: all 0s ease 0s;
+}
+
+div#approot {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 350px auto;
+    grid-template-rows: @height-row-top auto;
+    grid-template-areas: "banner trail"
+                         "menu main";
+}
+
+button {
+    min-width: 50px;
+    padding: 5px;
+    font-size: 18px;
+    border: 0;
+    color: @colour-button-text;
+    background-color: @colour-button;
+    border-radius: @radius;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: @colour-button-hover;
 }

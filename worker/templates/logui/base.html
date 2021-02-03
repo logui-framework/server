@@ -3,28 +3,95 @@
 {% load static %}
 {% load compress %}
 
-<html>
+<!--
+    LogUI Server
+    Part of the LogUI Framework
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+
         {% compress css %}
-        <link rel="stylesheet" type="text/less" href="{% static 'logui/less/core.less' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'logui/css/normalize.css' %}" />
         {% endcompress %}
 
-        {% compress js %}
-        <script src="{% static 'logui/js/firstrun.js' %}"></script>
+        {% compress css %}
+        <link rel="stylesheet" type="text/less" href="{% static 'logui/less/core.less' %}" />
+        <link rel="stylesheet" type="text/less" href="{% static 'logui/less/icons.less' %}" />
         {% endcompress %}
-        
+
+        {% block cssblock %}
+        {% endblock %}
+
         <title>LogUI</title>
     </head>
 
     <body>
-        <h1>LogUI</h1>
-        <div id="root"></div>
-        {% block bodyblock %}{% endblock %}
+        <div id="approot">
+        {% block bodyblock %}
+        {% include 'logui/nojs.html' %}
+        {% endblock %}
+        </div>
+
+        
+        <!-- <div id="approot">
+
+            <header class="tudelft">
+                <img src="{% static 'logui/img/logo.svg' %}" alt="LogUI Logo" />
+                <span class="version">v0.4.0</span>
+                <span class="tagline">Server Preview</span>
+            </header>
+            <nav class="trail">
+                <ul>
+                    <li><a href="#">LogUI</a></li>
+                    <li><a href="#">Applications</a></li>
+                    <li><a href="#"><strong>SearchX</strong></a></li>
+                </ul>
+            </nav>
+            <nav class="menu">
+                <ul class="categories">
+                    <li><a class="icon-application dark" href="#">Applications</a></li>
+                    <li class="user"><a class="icon-user dark" href="#">User Management</a></li>
+                </ul>
+                <div class="sub">
+                    <h3>Applications</h3>
+
+                    <h4>Current Applications</h4>
+
+                    <ul>
+                        <li><a href="#" class="noanimation icon-application dark"><span>Application One</span></a></li>
+                        <li><a href="#" class="noanimation icon-application dark"><span>Application Two</span></a></li>
+                        <li><a href="#" class="noanimation icon-application dark"><span>Application Three</span></a></li>
+                    </ul>
+
+                    <h4>Settings</h4>
+                    <ul>
+                        <li><a href="#" class="noanimation icon-add dark"><span>Create New Application</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+            <main>
+                <div class="header-container">
+                    <h1>
+                        <span class="indicator green"></span>SearchX<span class="subtitle">TU Delft</span>
+                    </h1>
+                    <div class="buttons-top">
+                        <button>Stop All</button>
+                        <button>+</button>
+                        <button>-</button>
+                    </div>
+                </div>
+
+            </main>
+        </div> -->
+
+
     </body>
 
-    {% compress js %}
-    <script type="module" src="{% static 'logui-client/app.js' %}"></script>
-    {% endcompress %}
+    {% block jsblock %}
+    {% endblock %}
 
 </html>

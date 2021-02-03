@@ -1,0 +1,116 @@
+@import '../global.less';
+
+nav.menu {
+    grid-area: menu;
+    display: grid;
+    height: 100%;
+    grid-template-columns: @height-menu-category-width auto;
+}
+
+nav.menu ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav.menu ul.categories {
+    background-color: @colour-menu-main-background;
+    position: relative;
+}
+
+nav.menu ul.categories li {
+    display: block;
+    width: calc(100% - 12px);
+    position: relative;
+    left: 6px;
+    height: @height-menu-category-width;
+}
+
+nav.menu ul.categories li:first-child {
+    margin-top: @height-menu-margin-top;
+}
+
+nav.menu ul.categories li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 0; 
+    font-size: 0;
+    color: transparent; 
+}
+
+nav.menu ul.categories li {
+    margin-bottom: 10px;
+}
+
+nav.menu ul.categories li.user {
+    position: absolute;
+    bottom: 6px;
+    margin-bottom: 0;
+}
+
+nav.menu div.sub {
+    padding: @height-menu-margin-top 0 0 10px;
+    background-color: @colour-menu-sub-background;
+    background-image: linear-gradient(to right, @colour-menu-sub-background, @colour-menu-gradient-colour);
+    background-size: @width-menu-gradient 100%;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+nav.menu div.sub h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+nav.menu div.sub h4 {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 15px 0 5px 0;
+    padding: 0;
+    color: @colour-menu-sub-h4-colour;
+}
+
+nav.menu div.sub ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav.menu div.sub ul li {
+    margin-bottom: 5px;
+}
+
+nav.menu div.sub ul li:last-child {
+    margin: 0;
+}
+
+nav.menu div.sub ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 6px 0 6px;
+    font-size: 15px;
+    color: @colour-menu-li-a-hover;
+    text-decoration: none;
+    background-size: 75% 75%;
+    background-position: -94px;
+}
+
+nav.menu div.sub ul li a:hover {
+    color: @colour-menu-li-a-hover-text;
+    background-color: @colour-menu-li-a-hover;
+    background-size: 75% 75%, @width-menu-gradient 100%;
+    background-position: -94px;
+    border-top-left-radius: @radius;
+    border-bottom-left-radius: @radius;
+}
+
+nav.menu div.sub ul li a span {
+    display: inline-block;
+    margin-left: 32px;
+}

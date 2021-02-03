@@ -1,5 +1,23 @@
 {% extends 'logui/base.html' %}
 
-{% block bodyblock %}
-This is the landing view for LogUI Control.
+{% load static %}
+{% load compress %}
+
+{% block cssblock %}
+    {% compress css %}
+    <link rel="stylesheet" type="text/less" href="{% static 'logui/less/loadingSplash.less' %}" />
+    <link rel="stylesheet" type="text/less" href="{% static 'logui/less/header.less' %}" />
+    <link rel="stylesheet" type="text/less" href="{% static 'logui/less/nav/trail.less' %}" />
+    <link rel="stylesheet" type="text/less" href="{% static 'logui/less/nav/menu.less' %}" />
+    <link rel="stylesheet" type="text/less" href="{% static 'logui/less/main.less' %}" />
+    {% endcompress %}
+{% endblock %}
+
+{% block jsblock %}
+    {% compress js %}
+    <script type="text/javascript">
+    LOGUI_CLIENTAPP_STATICROOT='{% static '' %}';
+    </script>
+    <script type="module" src="{% static 'logui-client/app.js' %}"></script>
+    {% endcompress %}
 {% endblock %}

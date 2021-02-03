@@ -5,9 +5,9 @@
 #
 #
 
-docker volume rm loguiserver_data
-docker volume rm loguiserver_static
+docker volume rm server_data
+docker volume rm server_static
 
-docker image rm loguiserver_http-worker
-docker image rm loguiserver_websocket-worker
-docker image rm loguiserver_proxy
+docker image rm server_websocket-worker
+docker image rm server_http-worker
+docker image rm server_proxy

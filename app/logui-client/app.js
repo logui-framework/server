@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import LogUIClientApp from './client';
+
 ReactDOM.render(
     <React.StrictMode>
-        <h1>This is a React app!</h1>
+        <LogUIClientApp />
     </React.StrictMode>,
-    document.getElementById('root')
+    document.getElementById('approot')
 );

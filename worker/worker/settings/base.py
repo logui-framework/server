@@ -12,6 +12,7 @@ USE_TZ = True
 
 INSTALLED_APPS = [
     'logui_apps.control',
+    'logui_apps.control_api',
     'logui_apps.websocket',
     'logui_apps.errorhandling',
     'django.contrib.admin',
@@ -22,9 +23,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'compressor',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,4 +93,8 @@ COMPRESS_CSS_FILTERS = [
 COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
     'compressor.filters.jsmin.CalmjsFilter',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000' # What do we need to change this to?
 ]

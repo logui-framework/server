@@ -1,0 +1,10 @@
+{% load static %}
+{% load compress %}
+
+{% compress css %}
+<link rel="stylesheet" type="text/less" href="{% static 'logui/less/nojs.less' %}" />
+{% endcompress %}
+
+<img src="{% static 'logui/img/logo.svg' %}" alt="LogUI Logo" />
+<h1>Welcome to LogUI!</h1>
+<p>You need to make sure that JavaScript is available to run in your browser. Check that it is enabled, and then refresh this page.</p>

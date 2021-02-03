@@ -1,0 +1,58 @@
+@import 'global.less';
+
+main {
+    grid-area: main;
+    overflow-y: scroll;
+    margin: 0 0 0 20px;
+    position: relative;
+}
+
+main div.header-container {
+    margin: 20px 20px 20px 0;
+}
+
+main div.header-container h1 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+}
+
+main div.header-container h1 span.subtitle {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+main div.header-container h1 span.indicator {
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    height: 26px;
+    width: 26px;
+    margin-right: 8px;
+    background-color: @colour-logui-purple;
+    border-radius: 13px;
+}
+
+main div.header-container h1 span.indicator.green {
+    background-color: @colour-green;
+}
+
+main div.header-container h1 span.indicator.red {
+    background-color: @colour-red;
+}
+
+main div.header-container div.buttons-top {
+    float: right;
+    height: 35px;
+}
+
+main div.header-container div.buttons-top button {
+    height: 100%;
+    line-height: 32px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 5px;
+}

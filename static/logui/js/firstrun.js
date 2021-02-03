@@ -1,1 +1,0 @@
-console.log('firstrunjs has been called');

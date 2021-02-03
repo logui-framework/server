@@ -1,0 +1,43 @@
+@import 'global.less';
+
+header {
+    grid-area: banner;
+    position: relative;
+    background-color: @colour-banner-background;
+    color: @colour-banner-text;
+}
+
+header.tudelft {
+    background-image: url('../img/tudelft.svg'), linear-gradient(to right, @colour-banner-background, #00A6D6);
+    background-position: right, right;
+    background-repeat: no-repeat;
+    background-size: auto, 100px 100%;
+}
+
+header a {
+    margin: 0 0 0 -5px;
+    height: 54px;
+    display: inline-block;
+}
+
+header a img {
+    margin: 5px 0 0 10px;
+    height: 54px;
+    width: auto;
+}
+
+header span {
+    position: absolute;
+    top: 36px;
+    left: 128px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+header span.tagline {
+    position: absolute;
+    top: 17px;
+    left: 128px;
+    font-weight: 300;
+    font-size: 14px;
+}

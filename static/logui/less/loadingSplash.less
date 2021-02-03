@@ -1,0 +1,45 @@
+@import 'global.less';
+
+@time-loadingSplash-fade-duration: 0.7s;
+
+div#loadingSplash {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: @colour-nojs-background;
+    color: @colour-nojs-text;
+    
+    -webkit-animation-duration: @time-loadingSplash-fade-duration;
+    animation-duration: @time-loadingSplash-fade-duration;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+ 
+div#loadingSplash.fadeOut {
+    -webkit-animation-name: fadeOutEffect;
+    animation-name: fadeOutEffect;
+}
+
+@-webkit-keyframes fadeOutEffect {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+ 
+@keyframes fadeOutEffect {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+div#loadingSplash img {
+    display: block;
+    width: 25%;
+    height: auto;
+    margin: 200px auto 0 auto;
+}
+
+div#loadingSplash.hide {
+    display: none;
+}
