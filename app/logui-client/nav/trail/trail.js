@@ -8,7 +8,7 @@ class TrailPageComponent extends React.Component {
     }
 
     render() {
-        var trailSequence = [<TrailItem key="lol" to="/" displayText="LogUI" />];
+        var trailSequence = [<TrailItem key="1" to="/" displayText="LogUI" />];
 
         if (this.props.currentTrail) {
             trailSequence = this.props.currentTrail;
