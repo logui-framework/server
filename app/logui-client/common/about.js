@@ -17,7 +17,11 @@ class AboutPage extends React.Component {
 
     render() {
         return (
-            <h1>About LogUI</h1>
+            <main>
+                <h1>About LogUI</h1>
+                Who has written this software?
+                What version of the client library works with this version of the server?
+            </main>
         );
     }
 

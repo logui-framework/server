@@ -11,7 +11,7 @@ class SettingsLandingPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.clientMethods.setMenuComponent(<Menu />);
+        this.props.clientMethods.setMenuComponent(Menu);
         this.props.clientMethods.setTrailComponent(this.getTrail());
     }
 

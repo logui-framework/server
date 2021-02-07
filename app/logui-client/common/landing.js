@@ -19,9 +19,19 @@ class LandingPage extends React.Component {
     }
 
     render() {
+        var isIn = "no";
+        if (this.props.isLoggedIn) {
+            isIn = "yes";
+        }
         return(
             <main>
-                <h1>Landing Page</h1>
+                <h1>Welcome to LogUI!</h1>
+                LogUI is the new way to log interactions in your web-based experiments.
+                
+                {isIn ? 'You are logged in': 'You are not logged in'}
+
+
+                
             </main>
         )
     };

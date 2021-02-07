@@ -13,16 +13,16 @@ class MenuPageComponent extends React.Component {
         var menuComponent = <BlankMenu />;
 
         if (this.props.currentMenuComponent) {
-            menuComponent = this.props.currentMenuComponent;
+            menuComponent = <this.props.currentMenuComponent {...this.props} />;
         }
 
         return (
             <nav className="menu">
                 <ul className="categories">
-                    <li><Link className="icon-application dark" to="/applications">Applications</Link></li>
-                    <li><Link className="icon-settings dark" to="/settings">Settings</Link></li>
+                    {this.props.isLoggedIn ? <li><Link className="icon-application dark" to="/applications">Applications</Link></li> : null}
+                    {this.props.isLoggedIn ? <li><Link className="icon-settings dark" to="/settings">Settings</Link></li> : null}
                     <li><Link className="icon-about dark" to="/about">About</Link></li>
-                    <li className="user"><Link className="icon-user dark" to="/user">User Management</Link></li>
+                    <li className="user"><Link className={`icon-user ${this.props.isLoggedIn ? 'green' : 'dark'}`} to="/user">User Management</Link></li>
                 </ul>
                 
                 {menuComponent}

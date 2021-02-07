@@ -2,7 +2,7 @@ import React from 'react';
 import Menu from './menu';
 import TrailItem from '../nav/trail/trailItem';
 
-class ViewApplicationPage extends React.Component {
+class NewApplicationPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -12,7 +12,7 @@ class ViewApplicationPage extends React.Component {
         return [
             <TrailItem key="1" to="/" displayText="LogUI" />,
             <TrailItem key="2" to="/applications" displayText="Applications" />,
-            <TrailItem key="3" to={`/applications/${this.props.match.params.id}`} displayText={this.props.match.params.id} />,
+            <TrailItem key="3" to="/applications/new" displayText="Create New Application" />,
         ];
     }
 
@@ -21,20 +21,14 @@ class ViewApplicationPage extends React.Component {
         this.props.clientMethods.setTrailComponent(this.getTrail());
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.props.clientMethods.setTrailComponent(this.getTrail());
-        }
-    }
-
     render() {
         return(
             <main>
-                <h1>Application with {this.props.match.params.id}</h1>
+                <h1>Create New Application</h1>
             </main>
         );
     }
 
 }
 
-export default ViewApplicationPage;
+export default NewApplicationPage;

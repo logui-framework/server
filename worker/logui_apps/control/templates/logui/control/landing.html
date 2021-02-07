@@ -10,14 +10,16 @@
     <link rel="stylesheet" type="text/less" href="{% static 'logui/less/nav/trail.less' %}" />
     <link rel="stylesheet" type="text/less" href="{% static 'logui/less/nav/menu.less' %}" />
     <link rel="stylesheet" type="text/less" href="{% static 'logui/less/main.less' %}" />
+    <link rel="stylesheet" type="text/less" href="{% static 'logui/less/login.less' %}" />
     {% endcompress %}
 {% endblock %}
 
 {% block jsblock %}
-    {% compress js %}
     <script type="text/javascript">
-    LOGUI_CLIENTAPP_STATICROOT='{% static '' %}';
+        LOGUI_CLIENTAPP_HOSTNAME='{{ request.get_host }}';
+        LOGUI_CLIENTAPP_STATICROOT='{% static '' %}';
     </script>
+    {% compress js %}
     <script type="module" src="{% static 'logui-client/app.js' %}"></script>
     {% endcompress %}
 {% endblock %}

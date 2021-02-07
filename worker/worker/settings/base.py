@@ -1,4 +1,5 @@
 import os
+import datetime
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -24,6 +25,7 @@ INSTALLED_APPS = [
     'channels',
     'compressor',
     'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -98,3 +100,19 @@ COMPRESS_JS_FILTERS = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000' # What do we need to change this to?
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'logui_apps.control_api.utils.token_response_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+}

@@ -1,0 +1,27 @@
+@import 'global.less';
+
+@colour-login-right-background: tint(@colour-logui-purple, 70%);
+@colour-login-right-background-red: tint(@colour-red, 70%);
+
+main div.split {
+    display: flex;
+}
+
+main div.split form {
+    flex: 50%;
+}
+
+main div.split div.right {
+    flex: 50%;
+    padding: 10px;
+    line-height: 18pt;
+    background-color: @colour-login-right-background;
+    border-radius: @radius;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+}
+
+main div.split div.right.red {
+    background-color: @colour-login-right-background-red;
+}
