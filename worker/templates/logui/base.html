@@ -75,38 +75,44 @@
             </nav>
             <main>
                 <div class="header-container">
-                    <h1>
-                        Login to LogUI
-                    </h1>
+                    <h1><span class="indicator green"></span>Applications<span class="subtitle">TU Delft</span></h1>
+                    <div class="buttons-top">
+                        <button>Create New</button>
+                    </div>
                 </div>
                 
                 <p>
-                    <strong>Welcome to LogUI!</strong> This is the interface from where you can control this LogUI instance, from creating new application references, to downloading interaction logs.
+                    <span class="logui">Log<span>UI</span></span> lets you create a series of applications. An application could be, for example, your experimental system.
                 </p>
 
-                <div class="split">
-                    <form method="POST" action="#">
-                        <label>
-                            <span>Username</span>
-                            <input type="text" />
-                        </label>
-                        <label>
-                            <span>Password</span>
-                            <input type="password" />
-                        </label>
-                        <div>
-                            <button>Login</button>
-                        </div>
-                    </form>
-                    <div class="right red">
-                        Enter your username and password into the input fields, and click the Login button.
+                <div class="table applications">
+
+                    <div class="row header">
+                        <span></span>
+                        <span><strong>Name</strong></span>
+                        <span class="centre"><strong>Created On</strong></span>
+                        <span class="centre"><strong>Flights</strong></span>
                     </div>
+
+                    <div class="row double-height">
+                        <span><span class="indicator green"></span></span>
+                        <span class="double"><span class="title"><strong>SearchX</strong></span><span class="subtitle mono">61575781-ddd8-4015-91b1-a4337eed4aee</span></span>
+                        <span class="centre"><a href="#inner">2021-03-02 12:34</a></span>
+                        <span class="flights centre">0</span>
+                        <a class="row-link" href="#big">View</a>
+                    </div>
+
+                    <div class="row">
+                        <span><span class="indicator green"></span></span>
+                        <span>Hello World</span>
+                        <span class="centre">2021-03-02 12:34</span>
+                        <span class="flights centre">0</span>
+                    </div>
+
                 </div>
 
-                <p class="bottom">
-                    LogUI Control App, version <code>0.4.0</code><br />
-                    Running on <code>hostname</code>
-                </p>
+
+                
             </main>
         </div>
 

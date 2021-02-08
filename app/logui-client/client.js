@@ -8,7 +8,7 @@ import MenuPageComponent from './nav/menu/menu';
 import LandingPage, {Submenu as LandingPageSubmenu} from './common/landing';
 import ApplicationsLandingPage from './applications/landing';
 import ApplicationsNewPage from './applications/new';
-import ApplicationsViewPage from './applications/view';
+import ApplicationsFlightsPage from './applications/flights';
 
 
 import SettingsLandingPage from './settings/landing';
@@ -199,7 +199,7 @@ class LogUIClientApp extends React.Component {
                         path="/applications/:id"
                         replace
                         render={
-                            (props) => (<ApplicationsViewPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
+                            (props) => (<ApplicationsFlightsPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
                     />
 
                     <Route

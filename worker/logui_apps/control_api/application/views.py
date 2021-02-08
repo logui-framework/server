@@ -13,9 +13,12 @@ class ApplicationInfo(APIView):
         applications = Application.objects.all()
         many = True
 
-        if appID is not None:
-            applications = Application.objects.get(id=appID)
-            many = False
+        try:
+            if appID is not None:
+                applications = Application.objects.get(id=appID)
+                many = False
+        except Application.DoesNotExist:
+            return Response("", status=status.HTTP_400_BAD_REQUEST)
 
         serializer = ApplicationSerializer(applications, many=many)
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -24,5 +24,6 @@ logui_application = ProtocolTypeRouter({
         URLRouter(
             routing.websocket_urlpatterns
         )
-    )
+    ),
+    'http': get_asgi_application()  # This may not be required in production.
 })
