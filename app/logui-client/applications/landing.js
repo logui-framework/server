@@ -59,20 +59,26 @@ class ApplicationsLandingPage extends React.Component {
                     <span className="logui">Log<strong>UI</strong></span> lets you create a series of applications to track interactions on. An application could be, for example, your experimental system.
                 </p>
 
-                <div className="table applications">
-                    <div className="row header">
-                        <span></span>
-                        <span><strong>Name</strong></span>
-                        <span className="centre"><strong>Created On</strong></span>
-                        <span className="centre"><strong>Flights</strong></span>
-                    </div>
+                {appList.length == 0 ?
+                        <p className="message-box info">There are no monitored applications in the LogUI database yet. Why not create a new application?</p>
+                        
+                        :
 
-                    {Object.keys(appList).map(function(key) {
-                        return (
-                            <ApplicationListItem key={appList[key].id} id={appList[key].id} name={appList[key].name} created_on={appList[key].created_on} />
-                        );
-                    })}
-                </div>
+                        <div className="table applications">
+                        <div className="row header">
+                            <span></span>
+                            <span><strong>Application Name</strong></span>
+                            <span className="centre"><strong>Created On</strong></span>
+                            <span className="centre"><strong>Flights</strong></span>
+                        </div>
+                        
+                        {Object.keys(appList).map(function(key) {
+                            return (
+                                <ApplicationListItem key={appList[key].id} id={appList[key].id} name={appList[key].name} created_on={appList[key].creation_timestamp} flights={appList[key].flights} />
+                            );
+                        })}
+                    </div>
+                }
             </main>
         )
     };
@@ -94,7 +100,7 @@ class ApplicationListItem extends React.Component {
                     <span className="subtitle mono">{this.props.id}</span>
                 </span>
                 <span className="centre">{this.props.created_on}</span>
-                <span className="flights centre">0</span>
+                <span className="flights centre">{this.props.flights}</span>
                 <Link to={`/applications/${this.props.id}`} className="row-link">View Application</Link>
             </div>
         );

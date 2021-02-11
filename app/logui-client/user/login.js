@@ -3,6 +3,8 @@ import {Redirect} from 'react-router-dom';
 import Menu from './menu';
 import TrailItem from '../nav/trail/trailItem';
 import Constants from '../constants';
+import BottomLogo from '../common/bottomLogo';
+import LogUIDevice from '../common/logUIDevice';
 
 class UserLoginPage extends React.Component {
     constructor(props) {
@@ -87,10 +89,12 @@ class UserLoginPage extends React.Component {
     
             return(
                 <main>
-                    <h1>Login</h1>
+                    <div className="header-container">
+                        <h1>Login</h1>
+                    </div>
     
                     <p>
-                        <strong>Welcome to LogUI!</strong> This is the interface from where you can control this LogUI instance, from creating new application references, to downloading interaction logs.
+                        <strong>Welcome to <LogUIDevice />!</strong> This is the interface from where you can control this instance of the <span className="logui">Log<strong>UI</strong></span> server; from creating new application references, to downloading interaction logs.
                     </p>
     
                     <div className="split">
@@ -110,14 +114,16 @@ class UserLoginPage extends React.Component {
                             </div>
                         </form>
     
-                        <div className={`right ${this.state.loginState == 1 ? 'red' : ''}`}>
+                        <div className={`message-box right ${this.state.loginState == 1 ? 'warning' : 'info'}`}>
                             {loginMessage}
                         </div>
     
                         <p className="bottom">
-                            LogUI Control App, version <code>{Constants.LOGUI_CLIENTAPP_VERSION}</code><br />
+                        <LogUIDevice /> Control App, version <code>{Constants.LOGUI_CLIENTAPP_VERSION}</code><br />
                             Running on <code>{LOGUI_CLIENTAPP_HOSTNAME}</code>
                         </p>
+
+                        <BottomLogo />
     
                     </div>
                     

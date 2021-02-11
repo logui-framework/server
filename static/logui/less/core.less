@@ -1,5 +1,8 @@
 @import 'global.less';
 
+@colour-message-box-background: tint(@colour-logui-purple, 70%);
+@colour-message-box-warning: tint(@colour-red, 70%);
+
 html, body {
     height: 100%;
 }
@@ -69,11 +72,38 @@ span.indicator.red {
     background-color: @colour-red;
 }
 
-span.logui span {
+span.logui strong {
     font-weight: 500;
     color: @colour-logui-purple;
 }
 
 .mono {
     font-family: monospace;
+}
+
+.message-box {
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: @radius;
+    font-weight: 500;
+}
+
+.message-box.info {
+    background-color: @colour-message-box-background;
+}
+
+.message-box.warning {
+    background-color: @colour-message-box-warning;
+}
+
+code.block {
+    display: block;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: @radius;
+    background-color: @colour-message-box-background;
 }
