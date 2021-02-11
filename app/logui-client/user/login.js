@@ -118,14 +118,14 @@ class UserLoginPage extends React.Component {
                             {loginMessage}
                         </div>
     
-                        <p className="bottom">
-                        <LogUIDevice /> Control App, version <code>{Constants.LOGUI_CLIENTAPP_VERSION}</code><br />
-                            Running on <code>{LOGUI_CLIENTAPP_HOSTNAME}</code>
-                        </p>
-
-                        <BottomLogo />
-    
                     </div>
+
+                    <p className="bottom">
+                        <LogUIDevice /> Control App, version <code>{Constants.LOGUI_CLIENTAPP_VERSION}</code><br />
+                        Running on <code>{LOGUI_CLIENTAPP_HOSTNAME}</code>
+                    </p>
+
+                    <BottomLogo />
                     
                 </main>
             );
