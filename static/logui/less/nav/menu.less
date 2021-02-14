@@ -13,41 +13,79 @@ nav.menu ul {
     list-style-type: none;
 }
 
-nav.menu ul.categories {
+nav.menu div.icons {
     background-color: @colour-menu-main-background;
     position: relative;
 }
 
-nav.menu ul.categories li {
+nav.menu div.icons ul.bottom {
+    position: absolute;
+    bottom: 6px;
+    width: 100%;
+}
+
+nav.menu div.icons ul li {
     display: block;
-    width: calc(100% - 12px);
-    position: relative;
-    left: 6px;
+    width: 100%;
     height: @height-menu-category-width;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+    padding: 7px;
 }
 
-nav.menu ul.categories li:first-child {
-    margin-top: @height-menu-margin-top;
+nav.menu div.icons ul li.big {
+    padding: 5px;
 }
 
-nav.menu ul.categories li a {
+nav.menu div.icons ul.top li:first-child {
+    margin-top: calc(@height-menu-margin-top - 5px);
+}
+
+nav.menu div.icons ul li a {
     display: block;
     width: 100%;
     height: 100%;
-    line-height: 0; 
+    line-height: 0;
     font-size: 0;
-    color: transparent; 
+    color: transparent;
 }
 
-nav.menu ul.categories li {
-    margin-bottom: 10px;
-}
+// nav.menu ul.categories {
+//     background-color: @colour-menu-main-background;
+//     position: relative;
+// }
 
-nav.menu ul.categories li.user {
-    position: absolute;
-    bottom: 6px;
-    margin-bottom: 0;
-}
+// nav.menu ul.categories li {
+//     display: block;
+//     width: calc(100% - 12px);
+//     position: relative;
+//     left: 6px;
+//     height: @height-menu-category-width;
+// }
+
+// nav.menu ul.categories li:first-child {
+//     margin-top: @height-menu-margin-top;
+// }
+
+// nav.menu ul.categories li a {
+//     display: block;
+//     width: 100%;
+//     height: 100%;
+//     line-height: 0; 
+//     font-size: 0;
+//     color: transparent; 
+// }
+
+// nav.menu ul.categories li {
+//     margin-bottom: 10px;
+// }
+
+// nav.menu ul.categories li.user {
+//     position: absolute;
+//     bottom: 6px;
+//     margin-bottom: 0;
+// }
 
 nav.menu div.sub {
     padding: @height-menu-margin-top 0 0 10px;

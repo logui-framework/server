@@ -18,12 +18,16 @@ class MenuPageComponent extends React.Component {
 
         return (
             <nav className="menu">
-                <ul className="categories">
-                    {this.props.isLoggedIn ? <li><Link className="icon-application dark" to="/applications">Applications</Link></li> : null}
-                    {this.props.isLoggedIn ? <li><Link className="icon-settings dark" to="/settings">Settings</Link></li> : null}
-                    <li><Link className="icon-about dark" to="/about">About</Link></li>
-                    <li className="user"><Link className={`icon-user ${this.props.isLoggedIn ? 'green' : 'dark'}`} to="/user">User Management</Link></li>
-                </ul>
+                <div class="icons">
+                    <ul className="top">
+                        <li><Link className="icon-application dark" to="/applications">Applications</Link></li>
+                        <li><Link className="icon-settings dark" to="/settings">Settings</Link></li>
+                    </ul>
+                    <ul className="bottom">
+                        <li><Link className="icon-about dark" to="/about">About</Link></li>
+                        <li className="big"><Link className={`icon-user ${this.props.isLoggedIn ? 'green' : 'dark'}`} to="/user">User Management</Link></li>
+                    </ul>
+                </div>
                 
                 {menuComponent}
             </nav>
