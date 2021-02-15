@@ -24,7 +24,9 @@ class NewApplicationPage extends React.Component {
     render() {
         return(
             <main>
-                <h1>Create New Application</h1>
+                <section>
+                    <h1>Create New Application</h1>
+                </section>
             </main>
         );
     }

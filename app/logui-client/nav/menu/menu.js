@@ -18,10 +18,10 @@ class MenuPageComponent extends React.Component {
 
         return (
             <nav className="menu">
-                <div class="icons">
+                <div className="icons">
                     <ul className="top">
-                        <li><Link className="icon-application dark" to="/applications">Applications</Link></li>
-                        <li><Link className="icon-settings dark" to="/settings">Settings</Link></li>
+                        {this.props.isLoggedIn ? <li><Link className="icon-application dark" to="/applications">Applications</Link></li> : ""}
+                        {this.props.isLoggedIn ? <li><Link className="icon-settings dark" to="/settings">Settings</Link></li> : ""}
                     </ul>
                     <ul className="bottom">
                         <li><Link className="icon-about dark" to="/about">About</Link></li>

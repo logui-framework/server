@@ -76,7 +76,9 @@ class ViewFlightsPage extends React.Component {
 
         return(
             <main>
-                <h1>{this.state.appInfo.name}</h1>
+                <section>
+                    <h1>{this.state.appInfo.name}</h1>
+                </section>
             </main>
         );
     }

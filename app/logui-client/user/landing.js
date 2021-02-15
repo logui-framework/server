@@ -23,7 +23,9 @@ class UserLandingPage extends React.Component {
     render() {
         return(
             <main>
-                <h1>User Landing Page</h1>
+                <section>
+                    <h1>User Landing Page</h1>
+                </section>
             </main>
         )
     };

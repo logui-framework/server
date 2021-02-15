@@ -1,0 +1,31 @@
+@import 'global.less';
+
+main footer {
+    flex-shrink: 0;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    padding: 20px 0 10px 0;
+    background: #FFFFFF;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 92%, rgba(255,255,255,0) 100%);
+}
+
+main footer div {
+    flex: 0.5;
+    line-height: 18pt;
+    color: tint(@colour-logui-purple, 60%);
+}
+
+main footer > div:last-child {
+    text-align: right;
+}
+
+main footer > div:last-child a {
+    display: inline-block;
+    width: 160px;
+}
+
+main footer > div:last-child a img {
+    width: 100%;
+    height: auto;
+}

@@ -10,7 +10,6 @@ import ApplicationsLandingPage from './applications/landing';
 import ApplicationsNewPage from './applications/new';
 import ApplicationsFlightsPage from './applications/flights';
 
-
 import SettingsLandingPage from './settings/landing';
 
 import UserLandingPage from './user/landing';
@@ -34,6 +33,7 @@ class LogUIClientApp extends React.Component {
             currentTrail: null,
             isLoggedIn: false,
             loginDetails: null,
+            landingMessage: null,
         };
 
         this.setMenuComponent = this.setMenuComponent.bind(this);
@@ -43,6 +43,8 @@ class LogUIClientApp extends React.Component {
         this.setLoginDetails = this.setLoginDetails.bind(this);
         this.getLoginDetails = this.getLoginDetails.bind(this);
         this.getLoginToken = this.getLoginToken.bind(this);
+        this.setLandingMessage = this.setLandingMessage.bind(this);
+        this.clearLandingMessage = this.clearLandingMessage.bind(this);
 
         this.methodReferences = {
             setMenuComponent: this.setMenuComponent,
@@ -50,6 +52,8 @@ class LogUIClientApp extends React.Component {
             getLoginDetails: this.getLoginDetails,
             login: this.login,
             logout: this.logout,
+            setLandingMessage: this.setLandingMessage,
+            clearLandingMessage: this.clearLandingMessage,
         }
     }
 
@@ -108,6 +112,8 @@ class LogUIClientApp extends React.Component {
             loginDetails: null,
         });
 
+        this.setLandingMessage(1);
+
         window.sessionStorage.removeItem(Constants.SESSIONSTORAGE_AUTH_TOKEN);
     }
 
@@ -146,6 +152,8 @@ class LogUIClientApp extends React.Component {
             loginDetails: userObject
         });
 
+        this.setLandingMessage(2);
+
         window.sessionStorage.setItem(Constants.SESSIONSTORAGE_AUTH_TOKEN, token);
     }
 
@@ -162,6 +170,26 @@ class LogUIClientApp extends React.Component {
         );
     }
 
+    setLandingMessage(messageID) {
+        this.setState({
+            landingMessage: messageID,
+        });
+    }
+
+    clearLandingMessage() {
+        this.setState({
+            landingMessage: null,
+        });
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.landingMessage) {
+            return false;
+        }
+
+        return true;
+    }
+
     render() {
         return(
             <Router>
@@ -176,9 +204,9 @@ class LogUIClientApp extends React.Component {
                         exact
                         replace
                         render={
-                            (props) => (<LandingPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
+                            (props) => (<LandingPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} landingMessage={this.state.landingMessage} />)}
                     />
-
+                    
                     <Route
                         path="/applications"
                         exact

@@ -10,37 +10,46 @@ main {
     overflow-y: scroll;
     margin: 0 0 0 20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-shrink: 0;
 }
 
-main div.header-container {
+main section {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+main section div.header-container {
     margin: 20px 20px 20px 0;
 }
 
-main div.header-container h1 {
+main section div.header-container h1 {
     display: inline-block;
     margin: 0;
     padding: 0;
     font-size: 32px;
 }
 
-main div.header-container h1 span.indicator {
+main section div.header-container h1 span.indicator {
     display: inline-block !important;
     margin-right: 8px;
 }
 
-main div.header-container h1 span.subtitle {
+main section div.header-container h1 span.subtitle {
     display: inline-block;
     margin-left: 10px;
     font-size: 16px;
     font-weight: 300;
 }
 
-main div.header-container div.buttons-top {
+main section div.header-container div.buttons-top {
     float: right;
     height: 35px;
 }
 
-main div.header-container div.buttons-top button {
+main section div.header-container div.buttons-top button {
     height: 100%;
     line-height: 32px;
     padding-top: 0;
@@ -48,7 +57,7 @@ main div.header-container div.buttons-top button {
     margin-left: 5px;
 }
 
-main h2 {
+main section h2 {
     display: inline-block;
     margin: 0;
     padding: 0;
@@ -56,11 +65,11 @@ main h2 {
     margin-top: 5px;
 }
 
-main > * {
+main section > * {
     margin: 20px 20px 20px 0;
 }
 
-main > p {
+main section > p {
     font-size: 12pt;
     line-height: 20pt;
 }
@@ -84,36 +93,15 @@ form label input[type="text"], form label input[type="password"] {
     font-size: 13pt;
 }
 
-main p.bottom {
-    position: absolute;
-    bottom: 0;
-    line-height: 18pt;
-    color: tint(@colour-logui-purple, 60%);
-}
-
-main p.bottom.right{
-    right: 0;
-}
-
-main p.bottom.right.logo a {
-    display: block;
-    width: 200px;
-}
-
-main p.bottom.right.logo a img {
-    width: 100%;
-    height: auto;
-}
-
-main div.table {
+main section div.table {
     border-top: 1px solid @colour-table-border;
 }
 
-main div.table strong {
+main section div.table strong {
     font-weight: 500;
 }
 
-main div.table div.row {
+main section div.table div.row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     position: relative;
@@ -122,26 +110,26 @@ main div.table div.row {
     border-bottom: 1px solid @colour-table-border-lighter;
 }
 
-main div.table div.row:hover {
+main section div.table div.row:hover {
     background-color: @colour-table-background-hover;
 }
 
-main div.table div.row.header:hover {
+main section div.table div.row.header:hover {
     background-color: transparent;
 }
 
-main div.table div.row.double-height {
+main section div.table div.row.double-height {
     height: 55px;
     line-height: 55px;
 }
 
-main div.table div.row.header {
+main section div.table div.row.header {
     font-size: 13pt;
     font-weight: 500;
     border-bottom: 1px solid @colour-table-border;
 }
 
-main div.table div.row a.row-link {
+main section div.table div.row a.row-link {
     position: absolute;
     top: 0;
     left: 0;
@@ -152,30 +140,30 @@ main div.table div.row a.row-link {
     color: transparent; 
 }
 
-main div.table div.row a:not(.row-link) {
+main section div.table div.row a:not(.row-link) {
     position: relative;
     z-index: 1;
 }
 
-main div.table div.row > span.centre {
+main section div.table div.row > span.centre {
     text-align: center;
 }
 
-main div.table div.row > span:first-child {
+main section div.table div.row > span:first-child {
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box; 
     box-sizing: border-box; 
     padding-left: 5px;
 }
 
-main div.table div.row > span:last-child {
+main section div.table div.row > span:last-child {
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box; 
     box-sizing: border-box; 
     padding-right: 5px;
 }
 
-main div.table div.row span.double span.title {
+main section div.table div.row span.double span.title {
     display: block;
     position: relative;
     bottom: 8px;
@@ -184,7 +172,7 @@ main div.table div.row span.double span.title {
     line-height: auto;
 }
 
-main div.table div.row span.double span.subtitle {
+main section div.table div.row span.double span.subtitle {
     display: block;
     position: relative;
     bottom: 6px;

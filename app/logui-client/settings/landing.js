@@ -18,7 +18,9 @@ class SettingsLandingPage extends React.Component {
     render() {
         return(
             <main>
-                <h1>Settings Landing Page</h1>
+                <section>
+                    <h1>Settings Landing Page</h1>
+                </section>
             </main>
         )
     };

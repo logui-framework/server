@@ -2,8 +2,7 @@ import React, { useDebugValue } from 'react';
 import {Redirect} from 'react-router-dom';
 import Menu from './menu';
 import TrailItem from '../nav/trail/trailItem';
-import Constants from '../constants';
-import BottomLogo from '../common/bottomLogo';
+import Footer from '../common/footer';
 import LogUIDevice from '../common/logUIDevice';
 
 class UserLoginPage extends React.Component {
@@ -89,43 +88,40 @@ class UserLoginPage extends React.Component {
     
             return(
                 <main>
-                    <div className="header-container">
-                        <h1>Login</h1>
-                    </div>
-    
-                    <p>
-                        <strong>Welcome to <LogUIDevice />!</strong> This is the interface from where you can control this instance of the <span className="logui">Log<strong>UI</strong></span> server; from creating new application references, to downloading interaction logs.
-                    </p>
-    
-                    <div className="split">
-    
-                        <form onSubmit={this.doLogin}>
-                            <label>
-                                <span>Username</span>
-                                <input type="text" name="username" onChange={e => this.updateUsername(e.target.value)} ref={(input) => { this.usernameField = input; }}  />
-                            </label>
-                            <label>
-                                <span>Password</span>
-                                <input type="password" name="password" onChange={e => this.updatePassword(e.target.value)} ref={(input) => { this.passwordField = input; }} />
-                            </label>
-                            <div>
-                                <button type="submit">Login</button>
-                                <button type="reset">Clear</button>
-                            </div>
-                        </form>
-    
-                        <div className={`message-box right ${this.state.loginState == 1 ? 'warning' : 'info'}`}>
-                            {loginMessage}
+                    <section>
+                        <div className="header-container">
+                            <h1>Login</h1>
                         </div>
-    
-                    </div>
+        
+                        <p>
+                            <strong>Welcome to <LogUIDevice />!</strong> This is the interface from where you can control this instance of the <span className="logui">Log<strong>UI</strong></span> server; from creating new application references, to downloading interaction logs.
+                        </p>
+        
+                        <div className="split">
+        
+                            <form onSubmit={this.doLogin}>
+                                <label>
+                                    <span>Username</span>
+                                    <input type="text" name="username" onChange={e => this.updateUsername(e.target.value)} ref={(input) => { this.usernameField = input; }}  />
+                                </label>
+                                <label>
+                                    <span>Password</span>
+                                    <input type="password" name="password" onChange={e => this.updatePassword(e.target.value)} ref={(input) => { this.passwordField = input; }} />
+                                </label>
+                                <div>
+                                    <button type="submit">Login</button>
+                                    <button type="reset">Clear</button>
+                                </div>
+                            </form>
+        
+                            <div className={`message-box right ${this.state.loginState == 1 ? 'warning' : 'info'}`}>
+                                {loginMessage}
+                            </div>
+        
+                        </div>
+                    </section>
 
-                    <p className="bottom">
-                        <LogUIDevice /> Control App, version <code>{Constants.LOGUI_CLIENTAPP_VERSION}</code><br />
-                        Running on <code>{LOGUI_CLIENTAPP_HOSTNAME}</code>
-                    </p>
-
-                    <BottomLogo />
+                    <Footer />
                     
                 </main>
             );
