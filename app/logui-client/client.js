@@ -183,7 +183,7 @@ class LogUIClientApp extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.state.landingMessage) {
+        if (this.state.landingMessage && nextState && !nextState.landingMessage) {
             return false;
         }
 
