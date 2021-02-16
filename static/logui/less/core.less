@@ -2,6 +2,7 @@
 
 @colour-message-box-background: tint(@colour-logui-purple, 70%);
 @colour-message-box-warning: tint(@colour-red, 70%);
+@colour-message-box-success: tint(@colour-green, 70%);
 
 html, body {
     height: 100%;
@@ -39,19 +40,47 @@ div#approot {
 }
 
 button {
+    .button
+}
+
+button:hover {
+    .button.hover
+}
+
+.button {
+    display: inline-block;
     min-width: 50px;
     padding: 8px;
     font-size: 16px;
-    margin-right: 10px;
+    line-height: 19px;
     border: 0;
     color: @colour-button-text;
     background-color: @colour-button;
     border-radius: @radius;
+    text-decoration: none;
+    font-weight: 500;
     cursor: pointer;
 }
 
-button:hover {
+.button.hover {
+    -o-transition: all 0s ease 0s;
+    -ms-transition: all 0s ease 0s;
+    -moz-transition: all 0s ease 0s;
+    -webkit-transition: all 0s ease 0s;
+    transition: all 0s ease 0s;
     background-color: @colour-button-hover;
+}
+
+.button:hover {
+    .button.hover
+}
+
+.buttonInlineSeparator * {
+    margin-right: 10px;
+}
+
+.buttonInlineSeparator:last-child {
+    margin-right: 0;
 }
 
 span.indicator {
@@ -82,12 +111,14 @@ span.logui strong {
 }
 
 .message-box {
+    position: relative;
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box; 
     box-sizing: border-box;
     padding: 10px;
     border-radius: @radius;
     font-weight: 500;
+    overflow-wrap: break-word;
 }
 
 .message-box.info {
@@ -98,6 +129,34 @@ span.logui strong {
     background-color: @colour-message-box-warning;
 }
 
+.message-box.success {
+    background-color: @colour-message-box-success;
+}
+
+.message-box.buttons {
+    margin-bottom: 35px;
+    padding-bottom: 30px;
+}
+
+.message-box.buttons > ul.buttons {
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    bottom: -15px;
+    right: 10px;
+    list-style-type: none;
+}
+
+.message-box.buttons > ul.buttons * {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.message-box.buttons > ul.buttons *:last-child {
+    margin-right: 0;
+}
+
 code.block {
     display: block;
     -moz-box-sizing: border-box; 
@@ -106,4 +165,9 @@ code.block {
     padding: 10px;
     border-radius: @radius;
     background-color: @colour-message-box-background;
+}
+
+.alert-text {
+    color: @colour-red;
+    font-weight: 400;
 }

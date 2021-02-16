@@ -108,7 +108,7 @@ class UserLoginPage extends React.Component {
                                     <span>Password</span>
                                     <input type="password" name="password" onChange={e => this.updatePassword(e.target.value)} ref={(input) => { this.passwordField = input; }} />
                                 </label>
-                                <div>
+                                <div className="buttonInlineSeparator">
                                     <button type="submit">Login</button>
                                     <button type="reset">Clear</button>
                                 </div>

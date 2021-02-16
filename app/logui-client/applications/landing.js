@@ -52,7 +52,7 @@ class ApplicationsLandingPage extends React.Component {
                     <div className="header-container">
                         <h1>Applications</h1>
                         <ul className="buttons-top">
-                            <li><Link to="/applications/new/">Create New Application</Link></li>
+                            <li><Link to="/applications/new/" className="button">Create New Application</Link></li>
                         </ul>
                     </div>
 

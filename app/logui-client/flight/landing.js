@@ -52,7 +52,7 @@ class ViewFlightsPage extends React.Component {
     }
 
     async getFlightListing() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/info/${this.state.appInfo.id}`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/info/list/${this.state.appInfo.id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
@@ -100,7 +100,7 @@ class ViewFlightsPage extends React.Component {
                     <div className="header-container">
                         <h1>{this.state.appInfo.name}<span className="subtitle">Flight Listing</span></h1>
                         <ul className="buttons-top">
-                            <li><Link to="/applications/flights/xxx/new/">Create New Flight</Link></li>
+                            <li><Link to={`/applications/flights/${this.state.appInfo.id}/new/`} className="button">Create New Flight</Link></li>
                         </ul>
                     </div>
 
@@ -154,8 +154,9 @@ class FlightListItem extends React.Component {
                 </span>
                 <span className="centre">{this.props.created_on}</span>
                 <span className="sessions centre">{this.props.sessions}</span>
-                <span className="icon"><Link to="/somewhere/" className="icon-token dark">Get Token</Link></span>
-                <span className="icon"><Link to="/somewhere/" className="icon-download dark">Download</Link></span>
+                <span className="icon"><Link to={`/flight/${this.props.id}/token/`} className="icon-token dark">Get Token</Link></span>
+                <span className="icon"><Link to="/download/" className="icon-download dark">Download</Link></span>
+                <Link to={`/somewhere/`} className="row-link">View Flight Sessions</Link>
             </div>
         )
     };

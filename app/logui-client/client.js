@@ -10,6 +10,7 @@ import ApplicationsLandingPage from './applications/landing';
 import ApplicationsNewPage from './applications/new';
 
 import FlightsLandingPage from './flight/landing';
+import FlightAuthorisationTokenPage from './flight/token';
 
 import SettingsLandingPage from './settings/landing';
 
@@ -229,6 +230,13 @@ class LogUIClientApp extends React.Component {
                         replace
                         render={
                             (props) => (<FlightsLandingPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
+                    />
+
+                    <Route
+                        path="/flight/:id/token"
+                        replace
+                        render={
+                            (props) => (<FlightAuthorisationTokenPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
                     />
 
                     <Route
