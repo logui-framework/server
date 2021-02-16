@@ -8,10 +8,11 @@ class Menu extends React.Component {
         super(props);
         this.state = {
             appListing: [],
+            initialised: false,
         }
     }
 
-    async componentDidMount() {
+    async getAppListing() {
         var response = await fetch(`${Constants.SERVER_API_ROOT}application/list/`, {
             method: 'GET',
             headers: {
@@ -22,8 +23,27 @@ class Menu extends React.Component {
         await response.json().then(data => {
             this.setState({
                 appListing: data,
+                initialised: true,
             });
+
+            this.props.clientMethods.setMenuShouldUpdate(false);
         });
+    }
+
+    async componentDidMount() {
+        this.getAppListing();
+    }
+
+    componentDidUpdate() {
+        this.getAppListing();
+    }
+
+    shouldComponentUpdate() {
+        if (!this.state.initialised || this.props.clientMethods.shouldMenuUpdate()) {
+            return true;
+        }
+
+        return false;
     }
 
     render() {

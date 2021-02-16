@@ -97,7 +97,7 @@ class UserLoginPage extends React.Component {
                             <strong>Welcome to <LogUIDevice />!</strong> This is the interface from where you can control this instance of the <span className="logui">Log<strong>UI</strong></span> server; from creating new application references, to downloading interaction logs.
                         </p>
         
-                        <div className="split">
+                        <div className="split login">
         
                             <form onSubmit={this.doLogin}>
                                 <label>

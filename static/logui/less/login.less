@@ -1,21 +1,9 @@
 @import 'global.less';
 
-@colour-login-right-background: tint(@colour-logui-purple, 70%);
-@colour-login-right-background-red: tint(@colour-red, 70%);
-
-main section div.split {
-    display: flex;
-}
-
-main section div.split form {
+main section div.split.login form {
     flex: 50%;
 }
 
-main section div.split div.right {
+main section div.split.login div.right {
     flex: 50%;
-    line-height: 18pt;
-}
-
-main section div.split div.right.warning {
-    background-color: @colour-login-right-background-red;
 }

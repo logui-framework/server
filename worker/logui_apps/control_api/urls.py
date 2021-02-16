@@ -15,6 +15,8 @@ urlpatterns = [
 
     path('application/list/', application_views.ApplicationInfo.as_view()),
     path('application/info/<uuid:appID>/', application_views.ApplicationInfo.as_view()),
+    path('application/add/check/', application_views.CheckApplicationNameView.as_view()),
+    path('application/add/', application_views.AddApplicationView.as_view()),
 
     path('flight/list/<uuid:appID>/', flight_views.FlightInfo.as_view()),
     path('flight/info/<uuid:flightID>/', flight_views.SpecificFlightInfoView.as_view()),

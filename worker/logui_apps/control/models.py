@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -8,7 +9,7 @@ class Application(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.RESTRICT)
     name = models.CharField(max_length=256, unique=True)
     is_active = models.BooleanField(default=True)
-    creation_timestamp = models.DateTimeField()
+    creation_timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name_plural = 'Applications'

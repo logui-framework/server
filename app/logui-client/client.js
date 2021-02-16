@@ -39,6 +39,7 @@ class LogUIClientApp extends React.Component {
             isLoggedIn: false,
             loginDetails: null,
             landingMessage: null,
+            shouldMenuUpdate: true,
         };
 
         this.setMenuComponent = this.setMenuComponent.bind(this);
@@ -50,6 +51,8 @@ class LogUIClientApp extends React.Component {
         this.getLoginToken = this.getLoginToken.bind(this);
         this.setLandingMessage = this.setLandingMessage.bind(this);
         this.clearLandingMessage = this.clearLandingMessage.bind(this);
+        this.shouldMenuUpdate = this.shouldMenuUpdate.bind(this);
+        this.setMenuShouldUpdate = this.setMenuShouldUpdate.bind(this);
 
         this.methodReferences = {
             setMenuComponent: this.setMenuComponent,
@@ -59,6 +62,8 @@ class LogUIClientApp extends React.Component {
             logout: this.logout,
             setLandingMessage: this.setLandingMessage,
             clearLandingMessage: this.clearLandingMessage,
+            shouldMenuUpdate: this.shouldMenuUpdate,
+            setMenuShouldUpdate: this.setMenuShouldUpdate,
         }
     }
 
@@ -185,6 +190,16 @@ class LogUIClientApp extends React.Component {
         this.setState({
             landingMessage: null,
         });
+    }
+
+    setMenuShouldUpdate(value) {
+        this.setState({
+            shouldMenuUpdate: value,
+        });
+    }
+
+    shouldMenuUpdate() {
+        return this.state.shouldMenuUpdate;
     }
 
     shouldComponentUpdate(nextProps, nextState) {
