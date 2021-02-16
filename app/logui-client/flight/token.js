@@ -1,6 +1,7 @@
 import React from 'react';
 import TrailItem from '../nav/trail/trailItem';
 import Constants from '../constants';
+import Menu from '../applications/menu';
 import LogUIDevice from '../common/logUIDevice';
 
 class AuthorisationTokenPage extends React.Component {
@@ -9,6 +10,7 @@ class AuthorisationTokenPage extends React.Component {
         super(props);
         
         this.state = {
+            flightAuthorisationToken: null,
             hasCopied: 0,
             flightInfo: null,
             hasFailed: false,
@@ -36,7 +38,30 @@ class AuthorisationTokenPage extends React.Component {
 
             this.setState({
                 hasFailed: true,
-            })
+            });
+        });
+    }
+
+    async getFlightAuthorisationToken() {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/info/${this.props.match.params.id}/token/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
+            },
+        });
+
+        await response.json().then(data => {
+            if (response.status == 200) {
+                this.setState({
+                    flightAuthorisationToken: data.flightAuthorisationToken,
+                });
+
+                return;
+            }
+
+            this.setState({
+                hasFailed: true,
+            });
         });
     }
 
@@ -56,12 +81,15 @@ class AuthorisationTokenPage extends React.Component {
 
     async componentDidMount() {
         await this.getFlightDetails();
+        await this.getFlightAuthorisationToken();
+        this.props.clientMethods.setMenuComponent(Menu);
         this.props.clientMethods.setTrailComponent(this.getTrail());
     }
 
     async componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             await this.getFlightDetails();
+            await this.getFlightAuthorisationToken();
             this.props.clientMethods.setTrailComponent(this.getTrail());
         }
     }
@@ -117,14 +145,18 @@ class AuthorisationTokenPage extends React.Component {
                         The code you must use for this particular application flight is shown below. Paste this into your <LogUIDevice /> client configuration object. Click the button to copy it to your device's clipboard.
                     </p>
 
-                    <div className={`message-box buttons info ${this.state.hasCopied ? 'success' : ''}`}>
-                        <code id="logui-flight-authorisation-token">
-                            reifhe9bhufui43ur8eyt8743up3hf983gy78rhuvh938hf8fh3djpjd3u289ryf834u8ru2y89ufw90fu3489tygji3gjirvjewfu8934uy3fh2894fj483u3nv9834j8943jr9ijc23u4938u9gjrfj3489fj4398jf
-                        </code>
-                        <ul className="buttons">
-                            <li><button onClick={this.copyAuthorisationCode}>Copy Authorisation Token to Clipboard</button></li>
-                        </ul>
-                    </div>
+                    {this.state.flightAuthorisationToken ?
+                        <div className={`message-box buttons info ${this.state.hasCopied ? 'success' : ''}`}>
+                            <code id="logui-flight-authorisation-token">
+                                {this.state.flightAuthorisationToken}
+                            </code>
+                            <ul className="buttons">
+                                <li><button onClick={this.copyAuthorisationCode}>Copy Authorisation Token to Clipboard</button></li>
+                            </ul>
+                        </div>
+                        :
+                        <p>Getting code...</p>
+                    }
 
                     <p className="alert-text">
                         Note that this code is unique to this particular application flight. Make sure you are using the correct code and the domain you specified is correct; any incorrect information will lead to interaction data not being logged.

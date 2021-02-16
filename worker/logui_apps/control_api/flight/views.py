@@ -25,6 +25,7 @@ class FlightInfo(APIView):
         serializer = FlightSerializer(flights, many=many)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 class SpecificFlightInfoView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     
@@ -39,3 +40,23 @@ class SpecificFlightInfoView(APIView):
         
         serializer = FlightSerializer(flight, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class FlightAuthorisationToken(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, flightID=None):
+        if flightID is None:
+            return Response("", status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            flight = Flight.objects.get(id=flightID)
+        except Flight.DoesNotExist:
+            return Response("", status=status.HTTP_400_BAD_REQUEST)
+        
+        response_dict = {
+            'flightID': str(flight.id),
+            'flightAuthorisationToken': 'Token goes here (from views.py)',
+        }
+        
+        return Response(response_dict, status=status.HTTP_200_OK)
