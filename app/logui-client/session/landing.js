@@ -3,6 +3,7 @@ import Menu from '../applications/menu';
 import TrailItem from '../nav/trail/trailItem';
 import Constants from '../constants';
 import LogUIDevice from '../common/logUIDevice';
+import {Link} from 'react-router-dom';
 
 
 class ViewSessionPage extends React.Component {
@@ -26,7 +27,6 @@ class ViewSessionPage extends React.Component {
             <TrailItem key="2" to="/applications" displayText="Applications" />,
             <TrailItem key="3" to={`/applications/${this.state.flightInfo.application.id}`} displayText={this.state.flightInfo.application.name} />,
             <TrailItem key="4" to={`/applications/${this.state.flightInfo.application.id}/${this.state.flightInfo.id}`} displayText={this.state.flightInfo.name} />,
-            <TrailItem key="5" to={`/session/${this.state.flightInfo.id}`} displayText="Sessions" />,
         ];
     }
 
@@ -81,7 +81,10 @@ class ViewSessionPage extends React.Component {
             <main>
                 <section>
                     <div className="header-container">
-                        <h1>Sessions</h1>
+                        <h1>{this.state.flightInfo.name}<span className="subtitle">{this.state.flightInfo.application.name}</span></h1>
+                        <ul className="buttons-top">
+                            <li><Link to={`/flight/${this.state.flightInfo.id}/token/`} className="button">View Authorisation Token</Link></li>
+                        </ul>
                     </div>
 
                     <p>

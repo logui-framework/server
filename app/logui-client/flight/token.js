@@ -74,7 +74,7 @@ class AuthorisationTokenPage extends React.Component {
             <TrailItem key="1" to="/" displayText="LogUI" />,
             <TrailItem key="2" to="/applications" displayText="Applications" />,
             <TrailItem key="3" to={`/applications/${this.state.flightInfo.application.id}`} displayText={this.state.flightInfo.application.name} />,
-            <TrailItem key="4" to={`/flight/${this.state.flightInfo.id}/`} displayText={this.state.flightInfo.name} />,
+            <TrailItem key="4" to={`/session/${this.state.flightInfo.id}/`} displayText={this.state.flightInfo.name} />,
             <TrailItem key="5" to={`/flight/${this.state.flightInfo.id}/token/`} displayText="Authorisation Token" />,
         ];
     }
