@@ -2,7 +2,7 @@ import React from 'react';
 import Menu from './menu';
 import Constants from '../constants';
 import TrailItem from '../nav/trail/trailItem';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class ApplicationsLandingPage extends React.Component {
 
@@ -51,9 +51,9 @@ class ApplicationsLandingPage extends React.Component {
                 <section>
                     <div className="header-container">
                         <h1>Applications</h1>
-                        <div className="buttons-top">
-                            <button>Create New</button>
-                        </div>
+                        <ul className="buttons-top">
+                            <li><Link to="/applications/new/">Create New Application</Link></li>
+                        </ul>
                     </div>
 
                     <p>
@@ -66,19 +66,19 @@ class ApplicationsLandingPage extends React.Component {
                             :
 
                             <div className="table applications">
-                            <div className="row header">
-                                <span></span>
-                                <span><strong>Application Name</strong></span>
-                                <span className="centre"><strong>Created On</strong></span>
-                                <span className="centre"><strong>Flights</strong></span>
+                                <div className="row header">
+                                    <span></span>
+                                    <span><strong>Application Name</strong></span>
+                                    <span className="centre"><strong>Created On</strong></span>
+                                    <span className="centre"><strong>Flights</strong></span>
+                                </div>
+                                
+                                {Object.keys(appList).map(function(key) {
+                                    return (
+                                        <ApplicationListItem key={appList[key].id} id={appList[key].id} name={appList[key].name} created_on={appList[key].creation_timestamp} flights={appList[key].flights} />
+                                    );
+                                })}
                             </div>
-                            
-                            {Object.keys(appList).map(function(key) {
-                                return (
-                                    <ApplicationListItem key={appList[key].id} id={appList[key].id} name={appList[key].name} created_on={appList[key].creation_timestamp} flights={appList[key].flights} />
-                                );
-                            })}
-                        </div>
                     }
                 </section>
             </main>

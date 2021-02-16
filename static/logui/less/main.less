@@ -44,18 +44,49 @@ main section div.header-container h1 span.subtitle {
     font-weight: 300;
 }
 
-main section div.header-container div.buttons-top {
+main section div.header-container ul.buttons-top {
     float: right;
     height: 35px;
+    margin: 0;
+    padding: 0;
 }
 
-main section div.header-container div.buttons-top button {
+main section div.header-container ul.buttons-top li {
+    display: inline-block;
     height: 100%;
-    line-height: 32px;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-left: 5px;
+    margin-right: 10px;
 }
+
+main section div.header-container ul.buttons-top li:last-child {
+    margin-right: 0;
+}
+
+main section div.header-container ul.buttons-top li a {
+    display: block;
+    height: 100%;
+    line-height: 35px;
+    padding: 0 8px 0 8px;
+    text-decoration: none;
+    color: @colour-button-text;
+    background-color: @colour-button;
+    border-radius: @radius;
+}
+
+main section div.header-container ul.buttons-top li a:hover {
+    background-color: @colour-button-hover;
+}
+
+// color: @colour-button-text;
+// background-color: @colour-button;
+// border-radius: @radius;
+
+// main section div.header-container div.buttons-top button {
+//     height: 100%;
+//     line-height: 32px;
+//     padding-top: 0;
+//     padding-bottom: 0;
+//     margin-left: 5px;
+// }
 
 main section h2 {
     display: inline-block;
@@ -180,4 +211,20 @@ main section div.table div.row span.double span.subtitle {
     height: 10pt;
     line-height: auto;
     color: @colour-table-subtitle;
+}
+
+main section div.table div.row span.icon {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main section div.table div.row span.icon a {
+    display: block;
+    width: 28px;
+    height: 28px;
+    line-height: 0; 
+    font-size: 0;
+    color: transparent; 
 }

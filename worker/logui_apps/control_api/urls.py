@@ -3,6 +3,7 @@ from django.urls import path
 
 from .user import views as user_views
 from .application import views as application_views
+from .flight import views as flight_views
 
 app_name = 'control_api'
 
@@ -12,5 +13,7 @@ urlpatterns = [
     path('user/create/', user_views.CreateUserAccount.as_view()),  # This mapping is for when we wish to create new user accounts.
 
     path('application/info/', application_views.ApplicationInfo.as_view()),
-    path('application/info/<uuid:appID>', application_views.ApplicationInfo.as_view()),
+    path('application/info/<uuid:appID>/', application_views.ApplicationInfo.as_view()),
+
+    path('flight/info/<uuid:appID>/', flight_views.FlightInfo.as_view()),
 ]

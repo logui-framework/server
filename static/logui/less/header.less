@@ -4,6 +4,10 @@ header {
     grid-area: banner;
     position: relative;
     background-color: @colour-banner-background;
+    background-image: linear-gradient(to right, @colour-banner-background, darken(@colour-banner-background, 20%));
+    background-size: @width-menu-gradient 100%;
+    background-position: right;
+    background-repeat: no-repeat;
     color: @colour-banner-text;
 }
 

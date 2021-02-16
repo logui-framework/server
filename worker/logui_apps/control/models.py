@@ -49,4 +49,4 @@ class Session(models.Model):
         verbose_name_plural = 'Sessions'
     
     def __str__(self):
-        return f'{self.application.name}, Session {self.id}'
+        return f'{self.flight.application.name}, Flight {self.flight.name}, Session {self.id}'
