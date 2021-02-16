@@ -1,7 +1,7 @@
 import React from 'react';
-import Menu from '../menu';
-import TrailItem from '../../nav/trail/trailItem';
-import Constants from '../../constants';
+import Menu from '../applications/menu';
+import TrailItem from '../nav/trail/trailItem';
+import Constants from '../constants';
 import {Link, Redirect} from 'react-router-dom';
 
 class ViewFlightsPage extends React.Component {

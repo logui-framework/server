@@ -9,7 +9,7 @@ import LandingPage, {Submenu as LandingPageSubmenu} from './common/landing';
 import ApplicationsLandingPage from './applications/landing';
 import ApplicationsNewPage from './applications/new';
 
-import FlightsLandingPage from './applications/flight/landing';
+import FlightsLandingPage from './flight/landing';
 
 import SettingsLandingPage from './settings/landing';
 
