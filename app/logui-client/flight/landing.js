@@ -52,7 +52,7 @@ class ViewFlightsPage extends React.Component {
     }
 
     async getFlightListing() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/info/list/${this.state.appInfo.id}`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/list/${this.state.appInfo.id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
@@ -94,13 +94,13 @@ class ViewFlightsPage extends React.Component {
             return(null); // Could add a loading thing here.
         }
 
-        return(
+        return (
             <main>
                 <section>
                     <div className="header-container">
                         <h1>{this.state.appInfo.name}<span className="subtitle">Flight Listing</span></h1>
                         <ul className="buttons-top">
-                            <li><Link to={`/applications/flights/${this.state.appInfo.id}/new/`} className="button">Create New Flight</Link></li>
+                            <li><Link to={`/flight/${this.state.appInfo.id}/add/`} className="button">Add New Flight</Link></li>
                         </ul>
                     </div>
 
@@ -109,7 +109,7 @@ class ViewFlightsPage extends React.Component {
                     </p>
 
                     {this.state.flightListing.length == 0 ?
-                        <p className="message-box info">The application {this.state.appInfo.name} currently has no flights registered. <Link to="/applications/flights/xxx/new/">Create a new flight</Link> to start tracking interactions!</p>
+                        <p className="message-box info">The application {this.state.appInfo.name} currently has no flights registered. <Link to={`/flight/${this.state.appInfo.id}/add/`}>Add a new flight</Link> to start tracking interactions!</p>
                         :
 
                         <div className="table flights">
@@ -156,7 +156,7 @@ class FlightListItem extends React.Component {
                 <span className="sessions centre">{this.props.sessions}</span>
                 <span className="icon"><Link to={`/flight/${this.props.id}/token/`} className="icon-token dark">Get Token</Link></span>
                 <span className="icon"><Link to="/download/" className="icon-download dark">Download</Link></span>
-                <Link to={`/somewhere/`} className="row-link">View Flight Sessions</Link>
+                <Link to={`/session/${this.props.id}/`} className="row-link">View Flight Sessions</Link>
             </div>
         )
     };

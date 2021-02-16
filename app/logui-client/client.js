@@ -7,10 +7,13 @@ import MenuPageComponent from './nav/menu/menu';
 
 import LandingPage, {Submenu as LandingPageSubmenu} from './common/landing';
 import ApplicationsLandingPage from './applications/landing';
-import ApplicationsNewPage from './applications/new';
+import ApplicationsNewPage from './applications/add';
 
 import FlightsLandingPage from './flight/landing';
 import FlightAuthorisationTokenPage from './flight/token';
+import FlightAddPage from './flight/add';
+
+import ViewSessionPage from './session/landing';
 
 import SettingsLandingPage from './settings/landing';
 
@@ -218,7 +221,7 @@ class LogUIClientApp extends React.Component {
                     />
                     
                     <Route
-                        path="/applications/new"
+                        path="/applications/add"
                         exact
                         replace
                         render={
@@ -237,6 +240,20 @@ class LogUIClientApp extends React.Component {
                         replace
                         render={
                             (props) => (<FlightAuthorisationTokenPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
+                    />
+
+                    <Route
+                        path="/flight/:id/add"
+                        replace
+                        render={
+                            (props) => (<FlightAddPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
+                    />
+
+                    <Route
+                        path="/session/:id"
+                        replace
+                        render={
+                            (props) => (<ViewSessionPage {...props} clientMethods={this.methodReferences} isLoggedIn={this.state.isLoggedIn} />)}
                     />
 
                     <Route

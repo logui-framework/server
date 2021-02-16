@@ -22,7 +22,7 @@ class ApplicationsLandingPage extends React.Component {
     }
 
     async getListing() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}application/info/`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}application/list/`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
@@ -52,7 +52,7 @@ class ApplicationsLandingPage extends React.Component {
                     <div className="header-container">
                         <h1>Applications</h1>
                         <ul className="buttons-top">
-                            <li><Link to="/applications/new/" className="button">Create New Application</Link></li>
+                            <li><Link to="/applications/add/" className="button">Add New Application</Link></li>
                         </ul>
                     </div>
 
@@ -61,7 +61,7 @@ class ApplicationsLandingPage extends React.Component {
                     </p>
 
                     {appList.length == 0 ?
-                            <p className="message-box info">There are no monitored applications in the LogUI database yet. Why not create a new application?</p>
+                            <p className="message-box info">There are no monitored applications in the LogUI database yet. <Link to="/applications/add/" className="button">Click here to add a new application.</Link></p>
                             
                             :
 

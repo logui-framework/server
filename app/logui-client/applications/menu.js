@@ -12,7 +12,7 @@ class Menu extends React.Component {
     }
 
     async componentDidMount() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}application/info/`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}application/list/`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
@@ -49,7 +49,7 @@ class Menu extends React.Component {
 
                 <h4>Settings</h4>
                 <ul>
-                    <li><Link to="/applications/new" className="noanimation icon-add dark"><span>Create New Application</span></Link></li>
+                    <li><Link to="/applications/add/" className="noanimation icon-add dark"><span>Add New Application</span></Link></li>
                 </ul>
             </div>
         );
