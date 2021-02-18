@@ -17,3 +17,10 @@ class FlightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flight
         fields = '__all__'
+
+
+class NewFlightSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Flight
+        fields = ('name', 'fqdn', 'created_by', 'application')

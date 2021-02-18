@@ -62,7 +62,7 @@ class ApplicationsLandingPage extends React.Component {
                     </p>
 
                     {appList.length == 0 ?
-                            <p className="message-box info">There are no monitored applications in the LogUI database yet. <Link to="/applications/add/" className="button">Click here to add a new application.</Link></p>
+                            <p className="message-box info">There are no monitored applications in the LogUI database yet. <Link to="/applications/add/">Click here to add a new application.</Link></p>
                             
                             :
 

@@ -83,7 +83,6 @@ class ApplicationAddPage extends React.Component {
         e.preventDefault();
 
         if (this.state.formState == 2 || this.state.formState == 3) {
-            console.log('ignore');
             return;
         }
 

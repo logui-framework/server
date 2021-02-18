@@ -128,8 +128,13 @@ class ViewSessionPage extends React.Component {
                     </div>
 
                     <p>
-                        Sessions are browsing sessions that have been captured by the <LogUIDevice /> client library with {this.state.flightInfo.application.name}.
+                        Browsing sessions that have been captured on {this.state.flightInfo.application.name} by <LogUIDevice /> are listed here. Metadata about each session (e.g., the browser used) is shown.
                     </p>
+                    {this.state.flightInfo.is_active ?
+                        <p><LogUIDevice /> is currently accepting new sessions for this flight.</p>
+                        :
+                        <p><LogUIDevice /> is <strong>not</strong> currently accepting new sessions for this flight.</p>
+                    }
 
                     {sessionListing.length == 0 ?
                         <p className="message-box info"><LogUIDevice /> has not yet recorded any sessions for this flight.</p>

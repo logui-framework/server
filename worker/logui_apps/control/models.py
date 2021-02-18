@@ -24,7 +24,7 @@ class Flight(models.Model):
     name = models.CharField(max_length=256, unique=True)
     is_active = models.BooleanField(default=True)
     fqdn = models.URLField(max_length=1024)
-    creation_timestamp = models.DateTimeField()
+    creation_timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name_plural = 'Flights'
