@@ -13,13 +13,14 @@ urlpatterns = [
     path('user/current/', user_views.CurrentUser.as_view()),
     path('user/create/', user_views.CreateUserAccount.as_view()),  # This mapping is for when we wish to create new user accounts.
 
-    path('application/list/', application_views.ApplicationInfo.as_view()),
-    path('application/info/<uuid:appID>/', application_views.ApplicationInfo.as_view()),
+    path('application/list/', application_views.ApplicationInfoView.as_view()),
+    path('application/specific/<uuid:appID>/', application_views.ApplicationInfoView.as_view()),
     path('application/add/check/', application_views.CheckApplicationNameView.as_view()),
     path('application/add/', application_views.AddApplicationView.as_view()),
 
     path('flight/list/<uuid:appID>/', flight_views.FlightInfo.as_view()),
     path('flight/info/<uuid:flightID>/', flight_views.SpecificFlightInfoView.as_view()),
+    path('flight/info/<uuid:flightID>/status/', flight_views.FlightStatusView.as_view()),
     path('flight/info/<uuid:flightID>/token/', flight_views.FlightAuthorisationTokenView.as_view()),
 
     path('session/list/<uuid:flightID>/', session_views.SessionListView.as_view()),

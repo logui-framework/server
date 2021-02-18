@@ -45,6 +45,7 @@ class ApplicationsLandingPage extends React.Component {
 
     render() {
         let appList = this.state.appListing;
+        let authToken = this.props.clientMethods.getLoginDetails().token;
 
         return(
             <main>
@@ -67,7 +68,6 @@ class ApplicationsLandingPage extends React.Component {
 
                             <div className="table applications">
                                 <div className="row header">
-                                    <span></span>
                                     <span><strong>Application Name</strong></span>
                                     <span className="centre"><strong>Created At</strong></span>
                                     <span className="centre"><strong>Flights</strong></span>
@@ -75,7 +75,13 @@ class ApplicationsLandingPage extends React.Component {
                                 
                                 {Object.keys(appList).map(function(key) {
                                     return (
-                                        <ApplicationListItem key={appList[key].id} id={appList[key].id} name={appList[key].name} timestampSplit={appList[key].creation_timestamp_split} flights={appList[key].flights} />
+                                        <ApplicationListItem
+                                            key={appList[key].id}
+                                            id={appList[key].id}
+                                            name={appList[key].name}
+                                            timestampSplit={appList[key].creation_timestamp_split}
+                                            flights={appList[key].flights}
+                                            />
                                     );
                                 })}
                             </div>
@@ -91,12 +97,15 @@ class ApplicationListItem extends React.Component {
     
     constructor(props) {
         super(props);
+
+        this.state = {
+            isActive: this.props.isActive,
+        };
     }
 
     render() {
         return(
             <div className="row double-height">
-                <span><span className="indicator green"></span></span>
                 <span className="double">
                     <span className="title"><strong>{this.props.name}</strong></span>
                     <span className="subtitle mono">{this.props.id}</span>

@@ -16,6 +16,8 @@ class ViewSessionPage extends React.Component {
             flightInfo: null,
             sessionListing: [],
         };
+
+        this.toggleFlightStatus = this.toggleFlightStatus.bind(this);
     }
 
     getTrail() {
@@ -84,6 +86,24 @@ class ViewSessionPage extends React.Component {
         }
     }
 
+    async toggleFlightStatus() {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/info/${this.state.flightInfo.id}/status/`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
+            },
+        });
+
+        await response.json().then(data => {
+            let updatedFlightInfo = this.state.flightInfo;
+            updatedFlightInfo.is_active = data.is_active;
+
+            this.setState({
+                flightInfo: updatedFlightInfo,
+            });
+        });
+    }
+
     render() {
         let sessionListing = this.state.sessionListing;
 
@@ -101,7 +121,7 @@ class ViewSessionPage extends React.Component {
             <main>
                 <section>
                     <div className="header-container">
-                        <h1>{this.state.flightInfo.name}<span className="subtitle">{this.state.flightInfo.application.name}</span></h1>
+                        <h1><span onClick={this.toggleFlightStatus} className={`indicator clickable ${this.state.flightInfo.is_active ? 'green' : 'red'}`}></span>{this.state.flightInfo.name}<span className="subtitle">{this.state.flightInfo.application.name}</span></h1>
                         <ul className="buttons-top">
                             <li><Link to={`/flight/${this.state.flightInfo.id}/token/`} className="button">View Authorisation Token</Link></li>
                         </ul>
@@ -182,11 +202,14 @@ class SessionListItem extends React.Component {
         else if (familyString.includes('firefox')) {
             iconClass = 'firefox';
         }
-        else if (familyString.includes('applewebkit')) {
+        else if (familyString.includes('safari')) {
             iconClass = 'safari';
         }
         else if (familyString.includes('opera')) {
             iconClass = 'opera'
+        }
+        else if (familyString.includes('edg')) {
+            iconClass = 'edge'
         }
 
         return iconClass;

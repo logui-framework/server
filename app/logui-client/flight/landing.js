@@ -29,7 +29,7 @@ class ViewFlightsPage extends React.Component {
     }
 
     async getAppDetails() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}application/info/${this.props.match.params.id}`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}application/specific/${this.props.match.params.id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
@@ -83,6 +83,7 @@ class ViewFlightsPage extends React.Component {
 
     render() {
         let flightListing = this.state.flightListing;
+        let authToken = this.props.clientMethods.getLoginDetails().token;
         
         if (this.state.hasFailed) {
             return(
@@ -124,7 +125,15 @@ class ViewFlightsPage extends React.Component {
 
                             {Object.keys(flightListing).map(function(key) {
                                     return (
-                                        <FlightListItem key={flightListing[key].id} id={flightListing[key].id} name={flightListing[key].name} is_active={flightListing[key].is_active} timestampSplit={flightListing[key].creation_timestamp_split} fqdn={flightListing[key].fqdn} sessions={flightListing[key].sessions} />
+                                        <FlightListItem
+                                            key={flightListing[key].id}
+                                            id={flightListing[key].id}
+                                            name={flightListing[key].name}
+                                            isActive={flightListing[key].is_active}
+                                            timestampSplit={flightListing[key].creation_timestamp_split}
+                                            fqdn={flightListing[key].fqdn}
+                                            sessions={flightListing[key].sessions}
+                                            authToken={authToken} />
                                     );
                             })}
                         </div>
@@ -142,12 +151,33 @@ class FlightListItem extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            isActive: this.props.isActive,
+        }
+
+        this.toggleStatus = this.toggleStatus.bind(this);
+    }
+
+    async toggleStatus() {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/info/${this.props.id}/status/`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `jwt ${this.props.authToken}`
+            },
+        });
+
+        await response.json().then(data => {
+            this.setState({
+                isActive: data.is_active,
+            });
+        });
     }
 
     render() {
         return (
             <div className="row double-height">
-                <span><span className="indicator green"></span></span>
+                <span className="indicator-container"><a><span onClick={this.toggleStatus} className={`indicator clickable ${this.state.isActive ? 'green' : 'red'}`}></span></a></span>
                 <span className="double">
                     <span className="title"><strong>{this.props.name}</strong></span>
                     <span className="subtitle mono"><a href={this.props.fqdn} target="_blank">{this.props.fqdn}</a></span>

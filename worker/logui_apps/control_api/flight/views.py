@@ -60,3 +60,35 @@ class FlightAuthorisationTokenView(APIView):
         }
         
         return Response(response_dict, status=status.HTTP_200_OK)
+
+
+class FlightStatusView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_flight_object(self, flightID):
+        try:
+            flight = Flight.objects.get(id=flightID)
+            return flight
+        except Flight.DoesNotExist:
+            pass
+        
+        return False
+
+    def get(self, request, flightID=None):
+        flight = self.get_flight_object(flightID)
+
+        if flight:
+            return Response({'flightID': flightID, 'is_active': flight.is_active}, status=status.HTTP_200_OK)
+
+        return Response({}, status=status.HTTP_404_NOT_FOUND)
+    
+    def patch(self, request, flightID=None):
+        flight = self.get_flight_object(flightID)
+
+        if flight:
+            flight.is_active = not flight.is_active
+            flight.save()
+
+            return Response({'flightID': flightID, 'is_active': flight.is_active}, status=status.HTTP_200_OK)
+        
+        return Response({}, status=status.HTTP_404_NOT_FOUND)

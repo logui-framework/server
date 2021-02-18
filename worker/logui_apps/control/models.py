@@ -8,7 +8,6 @@ class Application(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_by = models.ForeignKey(User, on_delete=models.RESTRICT)
     name = models.CharField(max_length=256, unique=True)
-    is_active = models.BooleanField(default=True)
     creation_timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:

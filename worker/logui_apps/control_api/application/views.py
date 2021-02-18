@@ -6,7 +6,7 @@ from ...control.models import Application
 from .serializers import ApplicationSerializer, NewApplicationSerializer
 
 
-class ApplicationInfo(APIView):
+class ApplicationInfoView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, appID=None):
