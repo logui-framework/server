@@ -69,7 +69,7 @@ class Menu extends React.Component {
 
                 <h4>Settings</h4>
                 <ul>
-                    <li><Link to="/applications/add/" className="noanimation icon-add dark"><span>Add New Application</span></Link></li>
+                    <li><Link to="/applications/add/" className="noanimation icon-container icon-add dark hover"><span>Add New Application</span></Link></li>
                 </ul>
             </div>
         );
@@ -84,7 +84,7 @@ class MenuItem extends React.Component {
 
     render() {
         return(
-            <li><Link to={`/applications/${this.props.id}`} className="noanimation icon-application dark"><span>{this.props.name}</span></Link></li>
+            <li><Link to={`/applications/${this.props.id}`} className="noanimation icon-container icon-application dark hover"><span>{this.props.name}</span></Link></li>
         );
     }
 

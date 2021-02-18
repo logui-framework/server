@@ -65,28 +65,28 @@ class LandingPage extends React.Component {
                                 <Link to="/applications/">
                                     <span className="header"><strong>Manage Applications</strong></span>
                                     <span className="blurb">Click here to manage what applications this instance of <LogUIDevice /> is tracking.</span>
-                                    <span className="icon icon-application dark"></span>
+                                    <span className="icon icon-container icon-application dark"></span>
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/settings/">
                                     <span className="header"><strong>Settings</strong></span>
                                     <span className="blurb">Tweak settings related to this instance of the <LogUIDevice /> server.</span>
-                                    <span className="icon icon-settings dark"></span>
+                                    <span className="icon icon-container icon-settings dark"></span>
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/about/">
                                     <span className="header"><strong>About <LogUIDevice /></strong></span>
                                     <span className="blurb">View more information about <LogUIDevice />.</span>
-                                    <span className="icon icon-about dark"></span>
+                                    <span className="icon icon-container icon-about dark"></span>
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/user/logout/">
                                     <span className="header"><strong>Logout</strong></span>
                                     <span className="blurb">Click here to safely logout of this instance of the <LogUIDevice /> server app.</span>
-                                    <span className="icon icon-key dark"></span>
+                                    <span className="icon icon-container icon-key dark"></span>
                                 </Link>
                             </li>
                         </ul>

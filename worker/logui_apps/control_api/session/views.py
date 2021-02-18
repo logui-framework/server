@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import permissions, status
 
 from ...control.models import Flight, Session
-from .serializers import SessionSerializer, SimpleSessionSerializer
+from .serializers import SessionSerializer
 
 
 class SessionListView(APIView):
@@ -22,7 +22,7 @@ class SessionListView(APIView):
 
         sessions = Session.objects.filter(flight=flightID)
 
-        serializer = SimpleSessionSerializer(sessions, many=many)
+        serializer = SessionSerializer(sessions, many=many)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

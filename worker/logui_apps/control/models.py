@@ -39,12 +39,9 @@ class Session(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     ip_address = models.GenericIPAddressField()
-    user_agent = models.TextField()
-    browser = models.TextField()
-    os = models.TextField()
-    device = models.TextField()
+    ua_string = models.TextField()
     start_timestamp = models.DateTimeField()
-    end_timestamp = models.DateTimeField()
+    end_timestamp = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Sessions'

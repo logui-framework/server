@@ -14,8 +14,8 @@ class Menu extends React.Component {
                 <h4>{this.props.isLoggedIn ? this.props.clientMethods.getLoginDetails().user.username : "Current User"}</h4>
 
                 <ul>
-                    {!this.props.isLoggedIn ? <li><a href="#/user/login" className="noanimation icon-key dark"><span>Login</span></a></li> : null}
-                    {this.props.isLoggedIn ? <li><a href="#/user/logout" className="noanimation icon-key dark"><span>Logout</span></a></li> : null}
+                    {!this.props.isLoggedIn ? <li><a href="#/user/login" className="noanimation icon-container icon-key dark hover"><span>Login</span></a></li> : null}
+                    {this.props.isLoggedIn ? <li><a href="#/user/logout" className="noanimation icon-container icon-key dark hover"><span>Logout</span></a></li> : null}
                 </ul>
             </div>
         )

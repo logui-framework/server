@@ -14,6 +14,7 @@ class ViewSessionPage extends React.Component {
         this.state = {
             hasFailed: false,
             flightInfo: null,
+            sessionListing: [],
         };
     }
 
@@ -53,8 +54,24 @@ class ViewSessionPage extends React.Component {
         });
     }
 
+    async getSessionListings() {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}session/list/${this.props.match.params.id}/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
+            },
+        });
+
+        await response.json().then(data => {
+            this.setState({
+                sessionListing: data,
+            });
+        });
+    }
+
     async componentDidMount() {
         await this.getFlightDetails();
+        await this.getSessionListings();
         this.props.clientMethods.setMenuComponent(Menu);
         this.props.clientMethods.setTrailComponent(this.getTrail());
     }
@@ -62,11 +79,14 @@ class ViewSessionPage extends React.Component {
     async componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
             await this.getFlightDetails();
+            await this.getSessionListings();
             this.props.clientMethods.setTrailComponent(this.getTrail());
         }
     }
 
     render() {
+        let sessionListing = this.state.sessionListing;
+
         if (this.state.hasFailed) {
             return(
                 <Redirect to="/" />
@@ -91,17 +111,122 @@ class ViewSessionPage extends React.Component {
                         Sessions are browsing sessions that have been captured by the <LogUIDevice /> client library with {this.state.flightInfo.application.name}.
                     </p>
 
-                    {this.state.flightInfo.sessions == 0 ?
+                    {sessionListing.length == 0 ?
                         <p className="message-box info"><LogUIDevice /> has not yet recorded any sessions for this flight.</p>
 
                         :
                         
-                        <p>Table goes here.</p>
+                        <div className="table session">
+                            <div className="row header">
+                                <span><strong>IP Address</strong></span>
+                                <span className="centre"><strong>Start Timestamp</strong></span>
+                                <span className="centre"><strong>End Timestamp</strong></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            {Object.keys(sessionListing).map(function(key) {
+                                return (
+                                    <SessionListItem
+                                        key={sessionListing[key].id}
+                                        id={sessionListing[key].id}
+                                        ip={sessionListing[key].ip_address}
+                                        splitTimestamps={sessionListing[key].split_timestamps}
+                                        agentDetails={sessionListing[key].agent_details}
+                                        />
+                                );
+                            })}
+                        </div>
                     }
                 </section>
             </main>
         );
     }
+
+}
+
+class SessionListItem extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    getOSFamilyIconClass(familyString) {
+        familyString = familyString.toLowerCase();
+        let iconClass = 'unknown';
+
+        if (familyString.includes('mac') || familyString.includes('iphone')) {
+            iconClass = 'apple';
+        }
+        else if (familyString.includes('windows')) {
+            iconClass = 'windows';
+        }
+        else if (familyString.includes('linux')) {
+            iconClass = 'linux';
+        }
+        else if (familyString.includes('android')) {
+            iconClass = 'android';
+        }
+
+        return iconClass;
+    }
+
+    getBrowserFamilyIconClass(familyString) {
+        familyString = familyString.toLowerCase();
+        let iconClass = 'browser';
+
+        if (familyString.includes('chrome') || familyString.includes('chromium')) {
+            iconClass = 'chrome';
+        }
+        else if (familyString.includes('firefox')) {
+            iconClass = 'firefox';
+        }
+        else if (familyString.includes('applewebkit')) {
+            iconClass = 'safari';
+        }
+        else if (familyString.includes('opera')) {
+            iconClass = 'opera'
+        }
+
+        return iconClass;
+    }
+
+    render() {
+        let iconClassOS = this.getOSFamilyIconClass(this.props.agentDetails.os.family);
+        let iconClassBrowser = this.getBrowserFamilyIconClass(this.props.agentDetails.browser.family);
+
+        return (
+            <div className="row double-height">
+                <span className="double">
+                    <span className="title mono">{this.props.ip}</span>
+                    <span className="subtitle mono">{this.props.id}</span>
+                </span>
+                <span className="double centre">
+                    <span className="title">{this.props.splitTimestamps.start_timestamp.time.locale}</span>
+                    <span className="subtitle">{this.props.splitTimestamps.start_timestamp.date.friendly}</span>
+                </span>
+
+                {this.props.splitTimestamps.end_timestamp ?
+                    <span className="double centre">
+                        <span className="title">{this.props.splitTimestamps.end_timestamp.time.locale}</span>
+                        <span className="subtitle">{this.props.splitTimestamps.end_timestamp.date.friendly}</span>
+                    </span>
+                    
+                    :
+
+                    <span className="centre">
+                        -
+                    </span>
+                }
+
+                <span className="icon"><span className={`icon-container icon-${this.props.agentDetails.is_desktop ? 'desktop': 'phone'} dark`}></span></span>
+                <span className="icon"><span className={`icon-container icon-${iconClassOS} dark`}></span></span>
+                <span className="browser icon"><span className={`icon-container icon-${iconClassBrowser} dark`}></span></span>
+                <span><span className={`indicator ${this.props.splitTimestamps.end_timestamp ? 'green' : 'orange'}`}></span></span>
+            </div>
+        )
+    };
 
 }
 

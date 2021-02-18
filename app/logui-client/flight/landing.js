@@ -116,7 +116,7 @@ class ViewFlightsPage extends React.Component {
                             <div className="row header">
                                 <span></span>
                                 <span><strong>Name/Domain</strong></span>
-                                <span className="centre"><strong>Created On</strong></span>
+                                <span className="centre"><strong>Created At</strong></span>
                                 <span className="centre"><strong>Session(s)</strong></span>
                                 <span className="centre"></span>
                                 <span className="centre"></span>
@@ -124,9 +124,9 @@ class ViewFlightsPage extends React.Component {
 
                             {Object.keys(flightListing).map(function(key) {
                                     return (
-                                        <FlightListItem key={flightListing[key].id} id={flightListing[key].id} name={flightListing[key].name} is_active={flightListing[key].is_active} created_on={flightListing[key].creation_timestamp} fqdn={flightListing[key].fqdn} sessions={flightListing[key].sessions} />
+                                        <FlightListItem key={flightListing[key].id} id={flightListing[key].id} name={flightListing[key].name} is_active={flightListing[key].is_active} timestampSplit={flightListing[key].creation_timestamp_split} fqdn={flightListing[key].fqdn} sessions={flightListing[key].sessions} />
                                     );
-                                })}
+                            })}
                         </div>
 
                     }
@@ -149,13 +149,16 @@ class FlightListItem extends React.Component {
             <div className="row double-height">
                 <span><span className="indicator green"></span></span>
                 <span className="double">
-                <span className="title"><strong>{this.props.name}</strong></span>
+                    <span className="title"><strong>{this.props.name}</strong></span>
                     <span className="subtitle mono"><a href={this.props.fqdn} target="_blank">{this.props.fqdn}</a></span>
                 </span>
-                <span className="centre">{this.props.created_on}</span>
+                <span className="double centre">
+                    <span className="title">{this.props.timestampSplit.time.locale}</span>
+                    <span className="subtitle">{this.props.timestampSplit.date.friendly}</span>
+                </span>
                 <span className="sessions centre">{this.props.sessions}</span>
-                <span className="icon"><Link to={`/flight/${this.props.id}/token/`} className="icon-token dark">Get Token</Link></span>
-                <span className="icon"><Link to="/download/" className="icon-download dark">Download</Link></span>
+                <span className="icon"><Link to={`/flight/${this.props.id}/token/`} className="icon-container icon-token dark hover">Get Token</Link></span>
+                <span className="icon"><Link to="/download/" className="icon-container icon-download dark hover">Download</Link></span>
                 <Link to={`/session/${this.props.id}/`} className="row-link">View Flight Sessions</Link>
             </div>
         )

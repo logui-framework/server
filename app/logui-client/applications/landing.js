@@ -69,13 +69,13 @@ class ApplicationsLandingPage extends React.Component {
                                 <div className="row header">
                                     <span></span>
                                     <span><strong>Application Name</strong></span>
-                                    <span className="centre"><strong>Created On</strong></span>
+                                    <span className="centre"><strong>Created At</strong></span>
                                     <span className="centre"><strong>Flights</strong></span>
                                 </div>
                                 
                                 {Object.keys(appList).map(function(key) {
                                     return (
-                                        <ApplicationListItem key={appList[key].id} id={appList[key].id} name={appList[key].name} created_on={appList[key].creation_timestamp} flights={appList[key].flights} />
+                                        <ApplicationListItem key={appList[key].id} id={appList[key].id} name={appList[key].name} timestampSplit={appList[key].creation_timestamp_split} flights={appList[key].flights} />
                                     );
                                 })}
                             </div>
@@ -101,7 +101,10 @@ class ApplicationListItem extends React.Component {
                     <span className="title"><strong>{this.props.name}</strong></span>
                     <span className="subtitle mono">{this.props.id}</span>
                 </span>
-                <span className="centre">{this.props.created_on}</span>
+                <span className="double centre">
+                    <span className="title">{this.props.timestampSplit.time.locale}</span>
+                    <span className="subtitle">{this.props.timestampSplit.date.friendly}</span>
+                </span>
                 <span className="flights centre">{this.props.flights}</span>
                 <Link to={`/applications/${this.props.id}`} className="row-link">View Application</Link>
             </div>

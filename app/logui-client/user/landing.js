@@ -1,6 +1,8 @@
 import React from 'react';
 import Menu from './menu';
 import TrailItem from '../nav/trail/trailItem';
+import LogUIDevice from '../common/logUIDevice';
+import {Link} from 'react-router-dom';
 
 class UserLandingPage extends React.Component {
 
@@ -23,9 +25,19 @@ class UserLandingPage extends React.Component {
     render() {
         return(
             <main>
-                <section>
-                    <h1>User Landing Page</h1>
-                </section>
+                <div className="header-container">
+                    <h1>User Management</h1>
+                </div>
+
+                <p>
+                    As more user management features are added to the <LogUIDevice /> control app, they will appear here.
+                </p>
+
+                {this.props.isLoggedIn ?
+                    <p>You can logout from the <LogUIDevice /> control app by <Link to="/user/logout/">clicking here</Link>.</p>
+                    :
+                    <p>You can login to the <LogUIDevice /> control app by <Link to="/user/login/">clicking here</Link>.</p>
+                }
             </main>
         )
     };

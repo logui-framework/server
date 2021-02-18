@@ -20,12 +20,12 @@ class MenuPageComponent extends React.Component {
             <nav className="menu">
                 <div className="icons">
                     <ul className="top">
-                        {this.props.isLoggedIn ? <li><Link className="icon-application dark" to="/applications">Applications</Link></li> : ""}
-                        {this.props.isLoggedIn ? <li><Link className="icon-settings dark" to="/settings">Settings</Link></li> : ""}
+                        {this.props.isLoggedIn ? <li><Link className="icon-container icon-application dark hover" to="/applications">Applications</Link></li> : ""}
+                        {this.props.isLoggedIn ? <li><Link className="icon-container icon-settings dark hover" to="/settings">Settings</Link></li> : ""}
                     </ul>
                     <ul className="bottom">
-                        <li><Link className="icon-about dark" to="/about">About</Link></li>
-                        <li className="big"><Link className={`icon-user ${this.props.isLoggedIn ? 'green' : 'dark'}`} to="/user">User Management</Link></li>
+                        <li><Link className="icon-container icon-about dark hover" to="/about">About</Link></li>
+                        <li className="big"><Link className={`icon-container icon-user hover ${this.props.isLoggedIn ? 'green' : 'dark'}`} to="/user">User Management</Link></li>
                     </ul>
                 </div>
                 

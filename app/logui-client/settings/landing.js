@@ -1,5 +1,6 @@
 import React from 'react';
 import TrailItem from '../nav/trail/trailItem';
+import LogUIDevice from '../common/logUIDevice';
 
 class SettingsLandingPage extends React.Component {
 
@@ -18,9 +19,13 @@ class SettingsLandingPage extends React.Component {
     render() {
         return(
             <main>
-                <section>
-                    <h1>Settings Landing Page</h1>
-                </section>
+                <div className="header-container">
+                    <h1><LogUIDevice /> Settings</h1>
+                </div>
+
+                <p>
+                    As settings are added allowing you to customise this instance of the <LogUIDevice /> server, they will appear here.
+                </p>
             </main>
         )
     };
@@ -31,13 +36,13 @@ export class Menu extends React.Component {
     render() {
         return(
             <div className="sub">
-                <h3>LogUI Settings</h3>
+                <h3><LogUIDevice /> Settings</h3>
 
-                <h4>Global Settings</h4>
+                {/* <h4>Global Settings</h4>
 
                 <ul>
-                    <li><a href="#" className="noanimation icon-settings dark"><span>Server Status</span></a></li>
-                </ul>
+                    <li><a href="#" className="noanimation icon-container icon-settings dark hover"><span>Server Status</span></a></li>
+                </ul> */}
             </div>
         )
     }
