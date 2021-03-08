@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from dateutil import parser as date_parser
 from urllib.parse import urlparse
 from django.core import signing
+from datetime import datetime
 
 SUPPORTED_CLIENTS = ['0.4.0']
 KNOWN_REQUEST_TYPES = ['handshake', 'closedown', 'logEvents']
@@ -20,6 +21,8 @@ class EndpointConsumer(JsonWebsocketConsumer):
         self._flight = None
         self._session = None
         self._session_created = None
+
+        self._f = open('/Users/david/Desktop/output.txt', 'w')
     
     def connect(self):
         self._client_ip = self.scope['client'][0]
@@ -184,5 +187,14 @@ class EndpointConsumer(JsonWebsocketConsumer):
             self.close(code=4006)
             return
         
+        import json
+
         for item in request_dict['payload']['items']:
-            print(item)
+            if item['eventType'] == 'statusEvent' and item['eventDetails']['type'] == 'stopped':
+                self._session.client_end_timestamp = date_parser.parse(item['timestamps']['eventTimestamp'])
+                self._session.server_end_timestamp = datetime.now()
+                self._session.save()
+
+            self._f.write(json.dumps(item))
+        
+        self._f.flush()
