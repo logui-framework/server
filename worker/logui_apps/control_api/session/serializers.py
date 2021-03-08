@@ -12,8 +12,8 @@ class SessionSerializer(serializers.ModelSerializer):
 
     def get_split_timestamps(self, obj):
         return {
-            'start_timestamp': get_split_timestamp(obj.start_timestamp),
-            'end_timestamp': get_split_timestamp(obj.end_timestamp)
+            'start_timestamp': get_split_timestamp(obj.server_start_timestamp),
+            'end_timestamp': get_split_timestamp(obj.server_end_timestamp)
         }
     
     def get_agent_details(self, obj):

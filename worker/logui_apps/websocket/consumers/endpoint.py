@@ -2,11 +2,12 @@ from ...control.models import Application, Flight, Session
 
 from channels.generic.websocket import JsonWebsocketConsumer
 from django.core.exceptions import ValidationError
+from dateutil import parser as date_parser
 from urllib.parse import urlparse
 from django.core import signing
 
 SUPPORTED_CLIENTS = ['0.4.0']
-KNOWN_REQUEST_TYPES = ['handshake', 'started', 'closedown', 'logEvents']
+KNOWN_REQUEST_TYPES = ['handshake', 'closedown', 'logEvents']
 BAD_REQUEST_LIMIT = 3
 
 class EndpointConsumer(JsonWebsocketConsumer):
@@ -18,6 +19,7 @@ class EndpointConsumer(JsonWebsocketConsumer):
         self._application = None
         self._flight = None
         self._session = None
+        self._session_created = None
     
     def connect(self):
         self._client_ip = self.scope['client'][0]
@@ -30,22 +32,19 @@ class EndpointConsumer(JsonWebsocketConsumer):
         if request_dict['type'] == 'handshake':
             self.send_json(self.generate_message_object('handshakeSuccess', {
                 'sessionID': str(self._session.id),
-                'clientStartTimetamp': str(self._session.start_timestamp),
+                'clientStartTimestamp': str(self._session.client_start_timestamp),
+                'newSessionCreated': self._session_created,
             }))
             return
         
-        print('receive')
-        
         type_redirection = {
-            'started': self.handle_started,
-            'closedown': self.handle_closedown,
             'logEvents': self.handle_log_events,
         }
 
         type_redirection[request_dict['type']](request_dict)
     
     def disconnect(self, close_code):
-        print('Disconnected')
+        pass
     
     def generate_message_object(self, message_type, payload):
         return {
@@ -76,7 +75,8 @@ class EndpointConsumer(JsonWebsocketConsumer):
                 if ('clientVersion' not in request_dict['payload'] or
                     'authenticationToken' not in request_dict['payload'] or
                     'pageOrigin' not in request_dict['payload'] or
-                    'userAgent' not in request_dict['payload']):
+                    'userAgent' not in request_dict['payload'] or
+                    'clientTimestamp' not in request_dict['payload']):
                     self.close(code=4002)
                     return False
                 
@@ -163,6 +163,7 @@ class EndpointConsumer(JsonWebsocketConsumer):
                 return False
             
             self._session = session
+            self._session_created = False
             return True
         
         # Create a new session object.
@@ -170,19 +171,18 @@ class EndpointConsumer(JsonWebsocketConsumer):
         session.flight = self._flight
         session.ip_address = self._client_ip
         session.ua_string = user_agent
+        session.client_start_timestamp = date_parser.parse(request_dict['payload']['clientTimestamp'])
 
         session.save()
         self._session = session
+        self._session_created = True
 
         return True
     
     def handle_log_events(self, request_dict):
         if not self._session:
             self.close(code=4006)
-    
-    def handle_started(self, request_dict):
-        print('handle started')
-    
-    def handle_closedown(self, request_dict):
-        if not self._session:
-            self.close(code=4006)
+            return
+        
+        for item in request_dict['payload']['items']:
+            print(item)
