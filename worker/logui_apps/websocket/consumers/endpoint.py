@@ -1,13 +1,188 @@
-from channels.generic.websocket import WebsocketConsumer
+from ...control.models import Application, Flight, Session
 
-class EndpointConsumer(WebsocketConsumer):
+from channels.generic.websocket import JsonWebsocketConsumer
+from django.core.exceptions import ValidationError
+from urllib.parse import urlparse
+from django.core import signing
+
+SUPPORTED_CLIENTS = ['0.4.0']
+KNOWN_REQUEST_TYPES = ['handshake', 'started', 'closedown', 'logEvents']
+BAD_REQUEST_LIMIT = 3
+
+class EndpointConsumer(JsonWebsocketConsumer):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._handshake_success = False
+        self._client_ip = None
+        self._application = None
+        self._flight = None
+        self._session = None
+    
     def connect(self):
+        self._client_ip = self.scope['client'][0]
         self.accept()
-    
-    def disconnect(self, close_mode):
-        pass
-    
-    def receive(self, text_data):
-        print(text_data)
 
-        self.send(text_data='from the server, hello!')
+    def receive_json(self, request_dict):
+        if not self.validate_request(request_dict) or not self.validate_handshake(request_dict):
+            return
+        
+        if request_dict['type'] == 'handshake':
+            self.send_json(self.generate_message_object('handshakeSuccess', {
+                'sessionID': str(self._session.id),
+                'clientStartTimetamp': str(self._session.start_timestamp),
+            }))
+            return
+        
+        print('receive')
+        
+        type_redirection = {
+            'started': self.handle_started,
+            'closedown': self.handle_closedown,
+            'logEvents': self.handle_log_events,
+        }
+
+        type_redirection[request_dict['type']](request_dict)
+    
+    def disconnect(self, close_code):
+        print('Disconnected')
+    
+    def generate_message_object(self, message_type, payload):
+        return {
+            'sender': 'logUIServer',
+            'type': message_type,
+            'payload': payload,
+        }
+    
+    def validate_request(self, request_dict):
+        bad_request = False
+
+        if 'sender' not in request_dict or request_dict['sender'] != 'logUIClient':
+            bad_request = True
+        
+        if ('type' not in request_dict or request_dict['type'] not in KNOWN_REQUEST_TYPES) and not bad_request:
+            bad_request = True
+        
+        if bad_request:
+            self.close(code=4001)
+            return False
+        
+        return True
+
+
+    def validate_handshake(self, request_dict):
+        if not self._handshake_success:
+            if request_dict['type'] == 'handshake':
+                if ('clientVersion' not in request_dict['payload'] or
+                    'authenticationToken' not in request_dict['payload'] or
+                    'pageOrigin' not in request_dict['payload'] or
+                    'userAgent' not in request_dict['payload']):
+                    self.close(code=4002)
+                    return False
+                
+                # Do we support the version of the client with this server?
+                if request_dict['payload']['clientVersion'] not in SUPPORTED_CLIENTS:
+                    self.close(code=4003)
+                    return False
+                
+                # Is the authentication token OK?
+                try:
+                    if not self.is_authentication_valid(signing.loads(request_dict['payload']['authenticationToken']), request_dict['payload']['pageOrigin']):
+                        return False
+                except signing.BadSignature:
+                    self.close(code=4004)
+                    return False
+                
+                # Check the session ID is okay, if it exists.
+                # If it doesn't, we create a new session.
+                if not self.check_set_session(request_dict):
+                    self.close(code=4006)
+                    return False
+                
+                # If we get here intact, the handshake was a success.
+                self._handshake_success = True
+        
+        return True
+    
+    def is_authentication_valid(self, authentication_object, page_origin):
+        if ('type' not in authentication_object or
+            'applicationID' not in authentication_object or
+            'flightID' not in authentication_object):
+            self.close(code=4004)
+            return False
+        
+        if authentication_object['type'] != 'logUI-authentication-object':
+            self.close(code=4004)
+            return False
+
+        # Check the application exists. Set the instance variable.
+        try:
+            self._application = Application.objects.get(id=authentication_object['applicationID'])
+        except Application.DoesNotExist:
+            self.close(code=4004)
+            return False
+
+        # Check the flight exists. Set the instance variable.
+        try:
+            self._flight = Flight.objects.get(id=authentication_object['flightID'])
+        except Flight.DoesNotExist:
+            self.close(code=4004)
+            return False
+
+        # Check the domain matches the expected value. Set the instance variable.
+        if urlparse(self._flight.fqdn).netloc == 'localhost':
+            return True
+        else:
+            split_origin = urlparse(page_origin)
+
+            if self._flight.fqdn != split_origin.netloc:
+                self.close(code=4005)
+                return False
+
+        return True
+    
+    def check_set_session(self, request_dict):
+        user_agent = request_dict['payload']['userAgent']
+
+        if 'sessionID' in request_dict['payload']:
+            session_id = request_dict['payload']['sessionID']
+
+            try:
+                session = Session.objects.get(id=session_id)
+            except Session.DoesNotExist:
+                return False
+            except ValidationError:
+                return False
+            
+            # If flights do not match, we aren't using the same flight as originally started used.
+            if session.flight != self._flight:
+                return False
+            
+            # If the UA strings do not match, we aren't using the same browser as originally used.
+            if session.ua_string != user_agent:
+                return False
+            
+            self._session = session
+            return True
+        
+        # Create a new session object.
+        session = Session()
+        session.flight = self._flight
+        session.ip_address = self._client_ip
+        session.ua_string = user_agent
+
+        session.save()
+        self._session = session
+
+        return True
+    
+    def handle_log_events(self, request_dict):
+        if not self._session:
+            self.close(code=4006)
+    
+    def handle_started(self, request_dict):
+        print('handle started')
+    
+    def handle_closedown(self, request_dict):
+        if not self._session:
+            self.close(code=4006)

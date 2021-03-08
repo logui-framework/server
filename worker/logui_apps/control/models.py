@@ -39,7 +39,7 @@ class Session(models.Model):
     is_active = models.BooleanField(default=True)
     ip_address = models.GenericIPAddressField()
     ua_string = models.TextField()
-    start_timestamp = models.DateTimeField()
+    start_timestamp = models.DateTimeField(default=timezone.now)
     end_timestamp = models.DateTimeField(null=True, blank=True)
 
     class Meta:

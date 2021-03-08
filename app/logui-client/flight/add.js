@@ -223,7 +223,7 @@ class FlightAddPage extends React.Component {
                 messageBox = 
                     <div className="message-box right info">
                         Enter the host/domain where your experimental system resides. Ensure this is the full domain that will be used by participants. If this is not correct, logging will not work.<br />
-                        For example, if your system is at <code>http://server.institute.nl/app/</code>, enter <code>http://server.institute.nl</code>.
+                        For example, if your system is at <code>http://server.institute.nl/app/</code>, enter <code>server.institute.nl</code>. If your application resides at a non-standard port (e.g. <code>8080</code>, include this like <code>server.institute.nl:8080</code>)
                     </div>
                 break;
             case 3:

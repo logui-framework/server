@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 
+from django.core import signing
 from ...control.models import Application, Flight
 from .serializers import FlightSerializer, NewFlightSerializer
 
@@ -45,6 +46,13 @@ class SpecificFlightInfoView(APIView):
 class FlightAuthorisationTokenView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
+    def get_authorisation_object(self, flight):
+        return {
+            'type': 'logUI-authentication-object',
+            'applicationID': str(flight.application.id),
+            'flightID': str(flight.id),
+        }
+
     def get(self, request, flightID=None):
         if flightID is None:
             return Response("", status=status.HTTP_400_BAD_REQUEST)
@@ -56,7 +64,7 @@ class FlightAuthorisationTokenView(APIView):
         
         response_dict = {
             'flightID': str(flight.id),
-            'flightAuthorisationToken': 'Token goes here (from views.py)',
+            'flightAuthorisationToken': signing.dumps(self.get_authorisation_object(flight)),
         }
         
         return Response(response_dict, status=status.HTTP_200_OK)
