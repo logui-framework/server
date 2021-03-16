@@ -5,7 +5,7 @@ const Constants = {
 
     SESSIONSTORAGE_AUTH_TOKEN: 'logui-authToken',  // The key in SessionStorage for keeping tabs of the authentication token to communicate with the server.
 
-    SERVER_API_ROOT: 'http://localhost:8000/api/',  // The root of the API server.
+    SERVER_API_ROOT: '/api/',  // The root of the API server.
 }
 
 export default Constants;

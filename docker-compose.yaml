@@ -64,9 +64,20 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=logui
-      - PGDATA=/logui/data/db
+      - PGDATA=/logui/data/
     volumes:
-      - data:/logui/data
+      - db:/logui/data
+    networks:
+      - backend
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - mongo:/data/db
     networks:
       - backend
 
@@ -84,7 +95,8 @@ services:
 
 volumes:
   static:
-  data:
+  db:
+  mongo:
 
 networks:
   frontend:

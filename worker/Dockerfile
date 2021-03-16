@@ -28,12 +28,11 @@ RUN npm install -g @babel/core @babel/cli browserify less
 COPY ./worker /logui/worker
 COPY ./app /logui/worker/app
 COPY ./static /logui/worker/copied-static
+COPY ./scripts/createuser.sh /logui/worker/createuser.sh
 COPY ./requirements/requirements.txt /logui/worker/requirements.txt
 
 WORKDIR /logui/worker
 
 RUN pip install -r requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org
-RUN if [ -n "$SECRET_KEY" ] ; then python manage.py collectstatic --noinput ; fi
-RUN if [ -n "$SECRET_KEY" ] ; then python manage.py compress ; fi
 
-CMD ["gunicorn", "worker.wsgi:logui_application", "-b", "0.0.0.0:8000", "-w", "4"]
+CMD ["/logui/worker/http-entrypoint.sh"]
