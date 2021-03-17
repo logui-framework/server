@@ -1,8 +1,5 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import permissions, status
-
 import io
+import os
 import json
 from django.core import signing
 from django.http import StreamingHttpResponse
@@ -10,6 +7,9 @@ from ...control.models import Application, Flight
 from .serializers import FlightSerializer, NewFlightSerializer
 from mongo import get_mongo_connection_handle, get_mongo_collection_handle
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import permissions, status
 
 class FlightInfo(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -190,14 +190,25 @@ class FlightLogDataDownloaderView(APIView):
         log_entries = mongo_collection_handle.find({}, {'_id': False})
         stream = io.StringIO()
 
-        for entry in log_entries:
-            stream.write(json.dumps(entry))
+        stream.write(f'[{os.linesep}{os.linesep}')
         
+        # Get the count and if it matches the length...
+        no_entries = log_entries.count()
+        counter = 0
+
+        for entry in log_entries:
+            if counter == (no_entries - 1):
+                stream.write(f'{json.dumps(entry)}{os.linesep}{os.linesep}')
+                continue
+            
+            stream.write(f'{json.dumps(entry)},{os.linesep}{os.linesep}')
+            counter += 1
+        
+        stream.write(f']')
         stream.seek(0)
         
         response = StreamingHttpResponse(stream, content_type='application/json')
         response['Content-Disposition'] = f'attachment; filename=logui-{str(flight.id)}.log'
         
         mongo_connection.close()
-
         return response

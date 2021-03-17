@@ -195,7 +195,7 @@ class FlightListItem extends React.Component {
                 // Then 'click' it. This forces the browser to download the blob!
                 let link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.setAttribute('download', `logui-${this.props.id}`);
+                link.setAttribute('download', `logui-${this.props.id}.log`);
                 link.click();
             });
     };
