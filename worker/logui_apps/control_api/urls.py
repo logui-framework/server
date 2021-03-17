@@ -24,6 +24,7 @@ urlpatterns = [
     path('flight/info/<uuid:flightID>/', flight_views.SpecificFlightInfoView.as_view()),
     path('flight/info/<uuid:flightID>/status/', flight_views.FlightStatusView.as_view()),
     path('flight/info/<uuid:flightID>/token/', flight_views.FlightAuthorisationTokenView.as_view()),
+    path('flight/download/<uuid:flightID>/', flight_views.FlightLogDataDownloaderView.as_view()),
 
     path('session/list/<uuid:flightID>/', session_views.SessionListView.as_view()),
     path('session/info/<uuid:sessionID>/', session_views.SessionInfoView.as_view()),

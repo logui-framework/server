@@ -7,7 +7,7 @@ def get_mongo_connection_handle():
                          username=settings.MONGO_USERNAME,
                          password=settings.MONGO_PASSWORD)
     
-    return client[settings.MONGO_DB]
+    return (client[settings.MONGO_DB], client)
 
 def get_mongo_collection_handle(db_handle, collection_name):
     return db_handle[collection_name]
@@ -16,4 +16,4 @@ def get_mongo_collection_handle(db_handle, collection_name):
 #   view in api for a flight (to download)
 #   include button in flight table to download
 #   use <a ... download></a> to download the file?
-#   while a download event is in progress, no other download should be possible.
+#   while a download event is in progress, no other download should be possible. 

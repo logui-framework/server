@@ -2,9 +2,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 
+import io
+import json
 from django.core import signing
+from django.http import StreamingHttpResponse
 from ...control.models import Application, Flight
 from .serializers import FlightSerializer, NewFlightSerializer
+from mongo import get_mongo_connection_handle, get_mongo_collection_handle
 
 
 class FlightInfo(APIView):
@@ -160,3 +164,40 @@ class AddFlightView(APIView):
             return Response({}, status=status.HTTP_201_CREATED)
 
         return Response({}, status=status.HTTP_201_CREATED)
+
+class FlightLogDataDownloaderView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, flightID):
+
+        try:
+            flight = Flight.objects.get(id=flightID)
+        except Flight.DoesNotExist:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
+
+        mongo_db_handle, mongo_connection = get_mongo_connection_handle()
+
+        # Do we have a collection for the flight in the MongoDB instance?
+        # If not, this means the flight has been created, but no data yet exists for it.
+        if not str(flight.id) in mongo_db_handle.list_collection_names():
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        
+        # If we get here, then there is a collection -- and we can get the data for it.
+        mongo_collection_handle = get_mongo_collection_handle(mongo_db_handle, str(flight.id))
+
+        # Get all of the data.
+        # This also omits the _id field that is added by MongoDB -- we don't need it.
+        log_entries = mongo_collection_handle.find({}, {'_id': False})
+        stream = io.StringIO()
+
+        for entry in log_entries:
+            stream.write(json.dumps(entry))
+        
+        stream.seek(0)
+        
+        response = StreamingHttpResponse(stream, content_type='application/json')
+        response['Content-Disposition'] = f'attachment; filename=logui-{str(flight.id)}.log'
+        
+        mongo_connection.close()
+
+        return response

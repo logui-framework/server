@@ -22,11 +22,11 @@ class EndpointConsumer(JsonWebsocketConsumer):
         self._flight = None
         self._session = None
         self._session_created = None
-        self._mongo_connection = get_mongo_connection_handle()
+        self._mongo_db_handle, self._mongo_connection = get_mongo_connection_handle()
         self._mongo_collection = None
-    
+
     def connect(self):
-        self._client_ip = self.scope['client'][0]
+        self._client_ip = self.scope['client'][0]  # Is this the correct value?
         self.accept()
 
     def receive_json(self, request_dict):
@@ -102,6 +102,12 @@ class EndpointConsumer(JsonWebsocketConsumer):
                 # If it doesn't, we create a new session.
                 if not self.check_set_session(request_dict):
                     self.close(code=4006)
+                    return False
+                
+                # Is the flight set to accept new clients?
+                # If not, then we must reject the request.
+                if not self._flight.is_active:
+                    self.close(code=4007)
                     return False
                 
                 # If we get here intact, the handshake was a success.
@@ -197,7 +203,10 @@ class EndpointConsumer(JsonWebsocketConsumer):
                 self._session.server_end_timestamp = datetime.now()
                 self._session.save()
 
+            item['applicationID'] = str(self._application.id)
+            item['flightID'] = str(self._flight.id)
+
             if not self._mongo_collection:
-                self._mongo_collection = get_mongo_collection_handle(self._mongo_connection, str(self._flight.id))
+                self._mongo_collection = get_mongo_collection_handle(self._mongo_db_handle, str(self._flight.id))
             
             self._mongo_collection.insert(item)

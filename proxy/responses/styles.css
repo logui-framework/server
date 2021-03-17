@@ -1,0 +1,35 @@
+html {
+    background-color: #46509E;
+}
+
+body {
+    margin: 0 auto 0 auto;
+    width: 60%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #46509E;
+    color: #FFFFFF;
+}
+
+div#approot {
+    display: block;
+}
+
+img {
+    display: block;
+    width: 30%;
+    height: auto;
+    padding: 35% 0 20px;
+}
+
+h1 {
+    padding: 0;
+    margin: 0 0 15px 0;
+    font-size: 32px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    line-height: 20px;
+}

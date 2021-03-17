@@ -157,7 +157,8 @@ class FlightListItem extends React.Component {
         }
 
         this.toggleStatus = this.toggleStatus.bind(this);
-    }
+        this.downloadData = this.downloadData.bind(this);
+    };
 
     async toggleStatus() {
         var response = await fetch(`${Constants.SERVER_API_ROOT}flight/info/${this.props.id}/status/`, {
@@ -172,7 +173,32 @@ class FlightListItem extends React.Component {
                 isActive: data.is_active,
             });
         });
-    }
+    };
+
+    async downloadData(event) {
+        event.preventDefault();
+
+        var response = fetch(`${Constants.SERVER_API_ROOT}flight/download/${this.props.id}/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `jwt ${this.props.authToken}`
+            },
+            })
+            .then(resp => resp.blob())  // Take the blob that is returned by the server
+            .then(blob => {             // "Click" the link for the blob, and it downloads.
+                if (blob.size == 0) {
+                    alert('There is no log data available to download for this flight at present.');
+                    return;
+                }
+                
+                // To simulate a download, create a new anchor element, and add the download attribute.
+                // Then 'click' it. This forces the browser to download the blob!
+                let link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.setAttribute('download', `logui-${this.props.id}`);
+                link.click();
+            });
+    };
 
     render() {
         return (
@@ -188,7 +214,7 @@ class FlightListItem extends React.Component {
                 </span>
                 <span className="sessions centre">{this.props.sessions}</span>
                 <span className="icon"><Link to={`/flight/${this.props.id}/token/`} className="icon-container icon-token dark hover">Get Token</Link></span>
-                <span className="icon"><Link to="/download/" className="icon-container icon-download dark hover">Download</Link></span>
+                <span className="icon"><Link to="" onClick={e => this.downloadData(e)} className="icon-container icon-download dark hover">Download</Link></span>
                 <Link to={`/session/${this.props.id}/`} className="row-link">View Flight Sessions</Link>
             </div>
         )

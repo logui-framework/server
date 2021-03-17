@@ -25,13 +25,13 @@ RUN apk add --update --no-cache \
 RUN mkdir -p /logui/worker/
 RUN npm install -g @babel/core @babel/cli browserify less
 
+COPY ./requirements/requirements.txt /logui/worker/requirements.txt
+RUN pip install -r /logui/worker/requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org
+
 COPY ./worker /logui/worker
 COPY ./app /logui/worker/app
 COPY ./static /logui/worker/copied-static
-COPY ./requirements/requirements.txt /logui/worker/requirements.txt
 
 WORKDIR /logui/worker
-
-RUN pip install -r requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org
 
 CMD ["/logui/worker/http-entrypoint.sh"]
