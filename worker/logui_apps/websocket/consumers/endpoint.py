@@ -1,4 +1,5 @@
 from ...control.models import Application, Flight, Session
+from mongo import get_mongo_connection_handle, get_mongo_collection_handle
 
 from channels.generic.websocket import JsonWebsocketConsumer
 from django.core.exceptions import ValidationError
@@ -21,8 +22,8 @@ class EndpointConsumer(JsonWebsocketConsumer):
         self._flight = None
         self._session = None
         self._session_created = None
-
-        self._f = open('/Users/david/Desktop/output.txt', 'w')
+        self._mongo_connection = get_mongo_connection_handle()
+        self._mongo_collection = None
     
     def connect(self):
         self._client_ip = self.scope['client'][0]
@@ -47,6 +48,7 @@ class EndpointConsumer(JsonWebsocketConsumer):
         type_redirection[request_dict['type']](request_dict)
     
     def disconnect(self, close_code):
+        self._mongo_connection.close()
         pass
     
     def generate_message_object(self, message_type, payload):
@@ -195,6 +197,7 @@ class EndpointConsumer(JsonWebsocketConsumer):
                 self._session.server_end_timestamp = datetime.now()
                 self._session.save()
 
-            self._f.write(json.dumps(item))
-        
-        self._f.flush()
+            if not self._mongo_collection:
+                self._mongo_collection = get_mongo_collection_handle(self._mongo_connection, str(self._flight.id))
+            
+            self._mongo_collection.insert(item)
