@@ -64,9 +64,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_DB=logui
-      - PGDATA=/logui/data/
+      # - PGDATA=/logui/data/
     volumes:
-      - db:/logui/data
+      - db:/var/lib/postgresql/data
     networks:
       - backend
   
@@ -78,20 +78,9 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASSWORD}
     volumes:
       - mongo:/data/db
+      - mongo:/data/configdb
     networks:
       - backend
-
-  # cache:
-  #   networks:
-  #     - backend
-
-  # db:
-  #   networks:
-  #     - backend
-
-  # logdb:
-  #   networks:
-  #     - backend
 
 volumes:
   static:
