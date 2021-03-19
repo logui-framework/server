@@ -1,5 +1,13 @@
 {% extends 'logui/base.html' %}
+{% load static %}
 
 {% block bodyblock %}
-500 Page!
+<link rel="stylesheet" type="text/css" href="{% static 'logui/css/error.css' %}" />
+
+<img src="{% static 'logui/img/logo.svg' %}" alt="LogUI Logo" />
+<h1>Server Error (HTTP 500)</h1>
+<p>
+    <strong>Something went wrong with the LogUI server. Sorry about this!</strong>
+    If you're the administrator, check the server logs to see what has happened.
+</p>
 {% endblock %}

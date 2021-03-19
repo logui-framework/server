@@ -1,5 +1,6 @@
 import React from 'react';
 import TrailItem from '../nav/trail/trailItem';
+import LogUIDevice from '../common/logUIDevice';
 
 class NotFoundPage extends React.Component {
 
@@ -17,7 +18,12 @@ class NotFoundPage extends React.Component {
 
     render() {
         return (
-            <h1>Page not found!</h1>
+            <main>
+                <section>
+                    <h1>Page Not Found</h1>
+                    <p><LogUIDevice /> could not find the page you are looking for.</p>
+                </section>
+            </main>
         );
     }
 

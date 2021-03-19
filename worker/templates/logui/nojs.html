@@ -1,10 +1,8 @@
 {% load static %}
 {% load compress %}
 
-{% compress css %}
-<link rel="stylesheet" type="text/less" href="{% static 'logui/less/nojs.less' %}" />
-{% endcompress %}
+<link rel="stylesheet" type="text/css" href="{% static 'logui/css/error.css' %}" />
 
 <img src="{% static 'logui/img/logo.svg' %}" alt="LogUI Logo" />
-<h1>Welcome to LogUI!</h1>
-<p>You need to make sure that JavaScript is available to run in your browser. Check that it is enabled, and then refresh this page.</p>
+<h1>JavaScript Disabled</h1>
+<p>In order to run the LogUI Control Application, you need to ensure that JavaScript is enabled in your browser. Once enabled, refresh this page.</p>

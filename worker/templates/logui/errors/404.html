@@ -1,5 +1,13 @@
 {% extends 'logui/base.html' %}
+{% load static %}
 
 {% block bodyblock %}
-404 Page!
+<link rel="stylesheet" type="text/css" href="{% static 'logui/css/error.css' %}" />
+
+<img src="{% static 'logui/img/logo.svg' %}" alt="LogUI Logo" />
+<h1>Not Found (HTTP 404)</h1>
+<p>
+    <strong>LogUI couldn't find the page you are looking for.</strong>
+    Check the path you have provided, and try again.
+</p>
 {% endblock %}
