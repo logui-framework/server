@@ -6,6 +6,7 @@ CLIENT_APP_DIR = BASE_DIR / 'app'
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False if os.getenv('DEBUG') == 'False' else True
+DEBUG = True  # Remove when the JS compilation issue is resolved
 ALLOWED_HOSTS = [os.getenv('DOCKER_HOSTNAME')]
 
 DATABASES = {

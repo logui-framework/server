@@ -84,7 +84,7 @@ COMPRESS_OUTPUT_DIR = 'cache'
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
     ('text/jsx', 'cat {infile} | babel > {outfile}'),
-    ('module', 'browserify {infile} -t babelify --outfile {outfile}'),
+    ('module', 'browserify {infile} -t babelify | uglifyjs > {outfile}'),
 )
 
 COMPRESS_CSS_FILTERS = [
