@@ -18,7 +18,7 @@ services:
     ports:
       - ${PROXY_LISTEN_ON}:8000
     volumes:
-      - static:/logui/static/
+      - static:/logui/worker/static/
     networks:
       - frontend
 
@@ -34,7 +34,7 @@ services:
       - PYTHONUNBUFFERED=1
     restart: always
     volumes:
-      - static:/logui/static/
+      - static:/logui/worker/static/
     networks:
       - frontend
       - backend
@@ -52,7 +52,7 @@ services:
       - PYTHONUNBUFFERED=1
     restart: always
     volumes:
-      - static:/logui/static/
+      - static:/logui/worker/static/
     networks:
       - frontend
       - backend
