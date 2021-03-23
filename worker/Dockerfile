@@ -3,7 +3,7 @@
 # Replace the CMD to launch the Websocket worker instead.
 # 
 # Author: David Maxwell
-# Date: 2021-03-16
+# Date: 2021-03-23
 #
 
 FROM python:3.8-alpine
@@ -23,15 +23,19 @@ RUN apk add --update --no-cache \
         npm
 
 RUN mkdir -p /logui/worker/
+WORKDIR /logui/worker
+
 RUN npm install -g @babel/core @babel/cli browserify less uglify-js
 
 COPY ./requirements/requirements.txt /logui/worker/requirements.txt
 RUN pip install -r /logui/worker/requirements.txt --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host=files.pythonhosted.org
 
+COPY ./worker/package.json /logui/worker/package.json
+COPY ./worker/package-lock.json /logui/worker/package-lock.json
+RUN npm install
+
 COPY ./worker /logui/worker
 COPY ./app /logui/worker/app
 COPY ./static /logui/worker/copied-static
-
-WORKDIR /logui/worker
 
 CMD ["/logui/worker/http-entrypoint.sh"]
