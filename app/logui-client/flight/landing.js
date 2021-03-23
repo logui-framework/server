@@ -29,7 +29,7 @@ class ViewFlightsPage extends React.Component {
     }
 
     async getAppDetails() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}application/specific/${this.props.match.params.id}`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}application/specific/${this.props.match.params.id}/`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
@@ -52,7 +52,7 @@ class ViewFlightsPage extends React.Component {
     }
 
     async getFlightListing() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/list/${this.state.appInfo.id}`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}flight/list/${this.state.appInfo.id}/`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`

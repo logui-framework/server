@@ -36,7 +36,7 @@ class FlightAddPage extends React.Component {
     }
 
     async getAppDetails() {
-        var response = await fetch(`${Constants.SERVER_API_ROOT}application/specific/${this.props.match.params.id}`, {
+        var response = await fetch(`${Constants.SERVER_API_ROOT}application/specific/${this.props.match.params.id}/`, {
             method: 'GET',
             headers: {
                 'Authorization': `jwt ${this.props.clientMethods.getLoginDetails().token}`
