@@ -77,8 +77,9 @@ class EndpointConsumer(JsonWebsocketConsumer):
     def validate_handshake(self, request_dict):
         if not self._handshake_success:
             if request_dict['type'] == 'handshake':
+                print(request_dict)
                 if ('clientVersion' not in request_dict['payload'] or
-                    'authenticationToken' not in request_dict['payload'] or
+                    'authorisationToken' not in request_dict['payload'] or
                     'pageOrigin' not in request_dict['payload'] or
                     'userAgent' not in request_dict['payload'] or
                     'clientTimestamp' not in request_dict['payload']):
@@ -90,9 +91,9 @@ class EndpointConsumer(JsonWebsocketConsumer):
                     self.close(code=4003)
                     return False
                 
-                # Is the authentication token OK?
+                # Is the authorisation token OK?
                 try:
-                    if not self.is_authentication_valid(signing.loads(request_dict['payload']['authenticationToken']), request_dict['payload']['pageOrigin']):
+                    if not self.is_authorisation_valid(signing.loads(request_dict['payload']['authorisationToken']), request_dict['payload']['pageOrigin']):
                         return False
                 except signing.BadSignature:
                     self.close(code=4004)
@@ -115,27 +116,27 @@ class EndpointConsumer(JsonWebsocketConsumer):
         
         return True
     
-    def is_authentication_valid(self, authentication_object, page_origin):
-        if ('type' not in authentication_object or
-            'applicationID' not in authentication_object or
-            'flightID' not in authentication_object):
+    def is_authorisation_valid(self, authorisation_object, page_origin):
+        if ('type' not in authorisation_object or
+            'applicationID' not in authorisation_object or
+            'flightID' not in authorisation_object):
             self.close(code=4004)
             return False
         
-        if authentication_object['type'] != 'logUI-authentication-object':
+        if authorisation_object['type'] != 'logUI-authorisation-object':
             self.close(code=4004)
             return False
 
         # Check the application exists. Set the instance variable.
         try:
-            self._application = Application.objects.get(id=authentication_object['applicationID'])
+            self._application = Application.objects.get(id=authorisation_object['applicationID'])
         except Application.DoesNotExist:
             self.close(code=4004)
             return False
 
         # Check the flight exists. Set the instance variable.
         try:
-            self._flight = Flight.objects.get(id=authentication_object['flightID'])
+            self._flight = Flight.objects.get(id=authorisation_object['flightID'])
         except Flight.DoesNotExist:
             self.close(code=4004)
             return False

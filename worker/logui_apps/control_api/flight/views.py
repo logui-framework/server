@@ -52,7 +52,7 @@ class FlightAuthorisationTokenView(APIView):
 
     def get_authorisation_object(self, flight):
         return {
-            'type': 'logUI-authentication-object',
+            'type': 'logUI-authorisation-object',
             'applicationID': str(flight.application.id),
             'flightID': str(flight.id),
         }

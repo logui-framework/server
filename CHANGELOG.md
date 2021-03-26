@@ -24,4 +24,10 @@ This Markdown file contains the `CHANGELOG` for LogUI server. Changes are made a
     * Basic Django applications and data models to handle capturing and management of data.
     * Functional WebSocket server to handle incoming requests from the LogUI client.
     * Functional basic authorisation via use of an encrypted string.
+
+2021-03-26  Version 0.5.1
+
+    Works with LogUI client version 0.5.1 and above.
+
+    Altered the configuration object to include an authorisation token, not an authentication token. Tidying up terminology.
 ```
