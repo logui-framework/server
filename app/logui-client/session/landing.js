@@ -3,7 +3,7 @@ import Menu from '../applications/menu';
 import TrailItem from '../nav/trail/trailItem';
 import Constants from '../constants';
 import LogUIDevice from '../common/logUIDevice';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 
 class ViewSessionPage extends React.Component {
