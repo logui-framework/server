@@ -30,4 +30,9 @@ This Markdown file contains the `CHANGELOG` for LogUI server. Changes are made a
     Works with LogUI client version 0.5.1 and above.
 
     Altered the configuration object to include an authorisation token, not an authentication token. Tidying up terminology.
+
+2021-03-31  Version 0.5.2
+
+    Updated the logic dictating version checks on clients connecting to the server.
+    We now use a 'startswith' check, rather than an absolute match.
 ```

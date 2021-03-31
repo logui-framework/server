@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from django.core import signing
 from datetime import datetime
 
-SUPPORTED_CLIENTS = ['0.5.1']
+SUPPORTED_CLIENTS = ['0.5.1', '0.5.2']
 KNOWN_REQUEST_TYPES = ['handshake', 'closedown', 'logEvents']
 BAD_REQUEST_LIMIT = 3
 
@@ -87,11 +87,17 @@ class EndpointConsumer(JsonWebsocketConsumer):
                     return False
                 
                 # Do we support the version of the client with this server?
-                if request_dict['payload']['clientVersion'] not in SUPPORTED_CLIENTS:
+                matching_version = False
+
+                for permitted_version in SUPPORTED_CLIENTS:
+                    if request_dict['payload']['clientVersion'].startswith(permitted_version):
+                        matching_version = True
+                        break
+                
+                if not matching_version:
                     self.close(code=4003)
                     return False
-                
-                # Is the authorisation token OK?
+
                 try:
                     if not self.is_authorisation_valid(signing.loads(request_dict['payload']['authorisationToken']), request_dict['payload']['pageOrigin']):
                         return False
