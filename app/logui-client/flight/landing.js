@@ -201,12 +201,18 @@ class FlightListItem extends React.Component {
     };
 
     render() {
+        let fqdnElement = <span className="subtitle mono"><a href={this.props.fqdn} target="_blank">{this.props.fqdn}</a></span>;
+
+        if (this.props.fqdn.toLowerCase() == 'bypass') {
+            fqdnElement = <span className="subtitle">Bypassing domain checks</span>;
+        }
+
         return (
             <div className="row double-height">
                 <span className="indicator-container"><a><span onClick={this.toggleStatus} className={`indicator clickable ${this.state.isActive ? 'green' : 'red'}`}></span></a></span>
                 <span className="double">
                     <span className="title"><strong>{this.props.name}</strong></span>
-                    <span className="subtitle mono"><a href={this.props.fqdn} target="_blank">{this.props.fqdn}</a></span>
+                    {fqdnElement}
                 </span>
                 <span className="double centre">
                     <span className="title">{this.props.timestampSplit.time.locale}</span>

@@ -23,7 +23,7 @@ class Flight(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
     name = models.CharField(max_length=256, unique=True)
     is_active = models.BooleanField(default=True)
-    fqdn = models.URLField(max_length=1024)
+    fqdn = models.CharField(max_length=1024)
     creation_timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:

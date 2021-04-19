@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from django.core import signing
 from datetime import datetime
 
-SUPPORTED_CLIENTS = ['0.5.1', '0.5.2']
+SUPPORTED_CLIENTS = ['0.5.1', '0.5.2', '0.5.3']
 KNOWN_REQUEST_TYPES = ['handshake', 'closedown', 'logEvents']
 BAD_REQUEST_LIMIT = 3
 
@@ -148,7 +148,7 @@ class EndpointConsumer(JsonWebsocketConsumer):
             return False
 
         # Check the domain matches the expected value. Set the instance variable.
-        if urlparse(self._flight.fqdn).netloc == 'localhost':
+        if self._flight.fqdn.lower() == 'bypass' or urlparse(self._flight.fqdn).netloc == 'localhost':
             return True
         else:
             split_origin = urlparse(page_origin)
