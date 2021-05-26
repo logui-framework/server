@@ -119,6 +119,9 @@ class EndpointConsumer(JsonWebsocketConsumer):
                 
                 # If we get here intact, the handshake was a success.
                 self._handshake_success = True
+            else:
+                self.close(code=4000)
+                return False
         
         return True
     
