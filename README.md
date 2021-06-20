@@ -26,7 +26,7 @@ We're thrilled that you're using LogUI in your experiments! We ask that in retur
 
 ## Documentation and First Run Guide
 
-For documentation on LogUI server, please go and check out the [corresponding Wiki](https://github.com/logui-framework/client/wiki/) associated with this repository. As an example, you'll find an in-depth [first run guide](https://github.com/logui-framework/server/wiki/First-Run-Guide), showing you exactly what you need to do to get LogUI server running on your computer of choice. More detailed information about the specifics of LogUI server, and what you can do with it, are also available on the Wiki.
+For documentation on LogUI server, please go and check out the [corresponding Wiki](https://github.com/logui-framework/server/wiki/) associated with this repository. As an example, you'll find an in-depth [first run guide](https://github.com/logui-framework/server/wiki/First-Run-Guide), showing you exactly what you need to do to get LogUI server running on your computer of choice. More detailed information about the specifics of LogUI server, and what you can do with it, are also available on the Wiki.
 
 ## Found a Bug or have a Feature Request?
 
