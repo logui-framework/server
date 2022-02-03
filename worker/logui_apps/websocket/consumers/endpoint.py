@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 from django.core import signing
 from datetime import datetime
 
-SUPPORTED_CLIENTS = ['0.5.1', '0.5.2', '0.5.3']
+SUPPORTED_CLIENTS = ['0.5.1', '0.5.2', '0.5.3', '0.5.4']
 KNOWN_REQUEST_TYPES = ['handshake', 'closedown', 'logEvents']
 BAD_REQUEST_LIMIT = 3
 
